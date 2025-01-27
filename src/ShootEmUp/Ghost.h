@@ -3,13 +3,13 @@
 class Ghost :public Shadow
 {
 protected:
-	int mTimeVisible;
-	int mTimeVisibleStay;
+	float mTimeVisible;
+	float mTimeVisibleStay;
 	bool IsShadow;
 public:
-	Ghost(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, int timeVisible);
+	Ghost(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, float timeVisible);
 
-	void TimeVisibleLess(int n);
+	void TimeVisibleLess(float n);
 
 	void Update(float timeFrame);
 

@@ -4,7 +4,7 @@
 
 GameManager* GameManager::mInstance = nullptr;
 
-GameManager::GameManager() : mWindow(sf::VideoMode(1920, 1080), "Shoot'Em Up works!", sf::Style::Fullscreen)
+GameManager::GameManager() : mWindow(sf::VideoMode(1920, 1080), "Shoot'Em Up works!")//, sf::Style::Fullscreen)
 {
     if (mInstance == nullptr)
         mInstance = this;

@@ -32,18 +32,20 @@ Text::Text(sf::Vector2f pos, int value)
 void Text::Increase(int amount)
 {
 	mValue += amount;
-	PrintText();
 }
 
 void Text::Lower(int amount)
 {
 	mValue -= amount;
-	PrintText();
 }
 
 void Text::SetValue(int amount)
 {
 	mValue = amount;
+}
+
+void Text::Update()
+{
 	PrintText();
 }
 

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Shot.h"
 #include "Character.h"
+#include "Ghost.h"
 #include <iostream>
 
 Shot::Shot(int type, std::string path, sf::Vector2f velocity, sf::Vector2f position) : Entity(path, velocity, position, 1)
@@ -28,8 +29,17 @@ void Shot::IsCollide(Scene* scene)
             {
                 //tuer tout les enemies
                 //detruire l'entite toucher
-                ((Character*)allEntities[index])->TakeDamage();
-
+                if (allEntities[index]->GetType() != COLLIDEGHOST)//(Ghost*)dynamic_cast<Ghost*>(allEntities[index]) == nullptr)
+                {
+                    ((Character*)allEntities[index])->TakeDamage();
+                }
+                else
+                {
+                    if (((Ghost*)allEntities[index])->GetIsHidden())
+                    {
+                        ((Character*)allEntities[index])->TakeDamage();
+                    }
+                }
                 //se detruire
                 IsDead();
             }

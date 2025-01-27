@@ -66,6 +66,10 @@ void Scene::Update(float timeFrame)
 			++it;
 		}
 	}
+	for (Text* i : mText)
+	{
+		i->Update();
+	}
 }
 
 int Scene::GenerateRandomNumber(int min, int max)

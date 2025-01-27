@@ -21,9 +21,9 @@ Level3::Level3(Text* score) : Scene()
     //texte
     mScore = score;
     Add(score);
-    mDifficulty = new Difficulty(sf::Vector2f(100.f, 30.f), 0);
+    mDifficulty = new Difficulty(sf::Vector2f(430.f, 30.f), 0);
     Add(mDifficulty);
-    mLife = new Up(sf::Vector2f(100.f, 30.f), 0);
+    mLife = new Up(sf::Vector2f(830.f, 30.f), PLAYERUP);
     Add(mLife);
 
     //premiere entity (joueur ou menu)
