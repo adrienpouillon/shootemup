@@ -10,10 +10,8 @@
 #include "Map.h"
 #include "Text.h"
 
-Scene::Scene(Text* score)
+Scene::Scene()
 {
-	mScore = score;
-	mDifficulty = new Text(DIFFICULTY, sf::Vector2f(500.f, 30.f), 0);
 	mLight = false;
 	mIsFinich = false;
 	//mDifficulty->SetValue(17);
@@ -24,6 +22,13 @@ void Scene::Add(Entity* entity)
 {
 	//ajouter une instance a mEntities
 	mEntities.push_back(entity);
+}
+
+//ajouter un texte
+void Scene::Add(Text* text)
+{
+	//ajouter une instance a mEntities
+	mText.push_back(text);
 }
 
 //Mise a jour
@@ -38,7 +43,7 @@ void Scene::Update(float timeFrame)
 		mEntities[i]->Update(timeFrame);
 		mEntities[i]->IsCollide(this);
 	}
-	std::cout<< mDifficulty->GetValue() << std::endl;
+	//std::cout<< mDifficulty->GetValue() << std::endl;
 	//destruction
 	for (auto it = mEntities.begin(); it != mEntities.end();)
 	{
@@ -81,9 +86,10 @@ sf::Vector2f Scene::CoordonnateRandomize(sf::Vector2f min, sf::Vector2f max)
 void Scene::GenerateEnemy()
 {
 	//aleatoire
-	int rand = GenerateRandomNumber(0, 1000);
+	int rand = GenerateRandomNumber(0, 1000);//level 1 50 //level 2 200//level 3 1000
 	if (rand == 1)
 	{
+		
 		//choisir des coordonnees aleatoire dans l'interval fournie 
 		sf::Vector2f coordonate = CoordonnateRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
 
@@ -104,10 +110,14 @@ void Scene::GenerateEnemy()
 
 void Scene::IncreaseDifficulty()
 {
-	int rand = GenerateRandomNumber(0, 10);
-	if (rand == 5)
+	int type = GetTypeScene();
+	for (int i = 0; i < DIFFICULTYSCENE; i+= type)
 	{
-		mDifficulty->Increase(1);
+		int rand = GenerateRandomNumber(0, 100);
+		if (rand == 5)
+		{
+			mDifficulty->Increase(1);
+		}
 	}
 }
 
@@ -141,5 +151,8 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		//afficher
 		target.draw(*i);
 	}
-	target.draw(*mScore);
+	for (Text* i : mText)
+	{
+		target.draw(*i);
+	}
 }

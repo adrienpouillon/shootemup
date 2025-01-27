@@ -4,12 +4,12 @@
 #include <iostream>
 #include "define.h"
 
-Player::Player(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position) : Character(up, path, velocity, position), Shooter(Scene)
+Player::Player(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife) : Character(up, path, velocity, position), Shooter(Scene)
 {
     mCooldownSwap = 0;
     mLight = light;
     tremble = 1;
-    mTextLife = new Text(LIFE, sf::Vector2f(200.f, 30.f), up);
+    mTextLife = TextLife;//new Text(LIFE, sf::Vector2f(200.f, 30.f), up);
 }
 
 //deplacer + input
@@ -34,7 +34,7 @@ void Player::Move(float timeFrame)
         //droite
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            x = getPosition().x + mVelocity.x * timeFrame*5;
+            x = getPosition().x + mVelocity.x * timeFrame*2;
             y = getPosition().y;
             if (x > 1860)
             {
@@ -46,7 +46,7 @@ void Player::Move(float timeFrame)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
             x = getPosition().x;
-            y = getPosition().y - mVelocity.y * (timeFrame-0.00030);
+            y = getPosition().y - mVelocity.y * (timeFrame);
             if (y < 60)
             {
                 y = getPosition().y;
@@ -57,7 +57,7 @@ void Player::Move(float timeFrame)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
             x = getPosition().x;
-            y = getPosition().y + mVelocity.y *timeFrame*5;
+            y = getPosition().y + mVelocity.y *timeFrame*2;
             if (y > 944)
             {
                 y = getPosition().y;

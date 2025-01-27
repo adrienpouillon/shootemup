@@ -1,10 +1,12 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "Text.h"
-class Entity;
+#include "Score.h"
+#include "Difficulty.h"
+#include "Up.h"
 #include "define.h"
-class Score;
+
+class Entity;
 
 
 class Scene : public sf::Drawable
@@ -13,14 +15,19 @@ protected:
 	//permet le stockage de toute instance affichable et updatable 
 	std::vector<Entity*> mEntities;
 	bool spawnrandomize;
-	Text* mDifficulty;
+	std::vector < Text*> mText;
 	Text* mScore;
+	Text* mDifficulty;
+	Text* mLife;
 	bool mLight;
 	bool mIsFinich;
+	int generateEnemy;
 public:
-	Scene(Text* score);
+	Scene();
 
 	void Add(Entity* entity);
+
+	void Add(Text* text);
 
 	void Update(float timeFrame);
 
@@ -39,6 +46,8 @@ public:
 	std::vector<Entity*> GetEntities();
 
 	bool GetIsFinich();
+
+	virtual int GetTypeScene() = 0;
 
 	// Hérité via Drawable
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

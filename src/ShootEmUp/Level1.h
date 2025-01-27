@@ -10,5 +10,6 @@ public:
 	Level1(Text* score);
 
 	virtual void ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy);
+	virtual int GetTypeScene();
 };
 

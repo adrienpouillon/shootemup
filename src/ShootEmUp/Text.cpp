@@ -3,9 +3,8 @@
 #include "define.h"
 
 
-Text::Text(int printText, sf::Vector2f pos, int value)
+Text::Text(sf::Vector2f pos, int value)
 {
-	mPrintText = printText;
 	mValue = value;
 	setPosition(pos);
 
@@ -18,7 +17,7 @@ Text::Text(int printText, sf::Vector2f pos, int value)
 	mText.setFont(mFont); // font is a sf::Font
 
 	// set the string to display
-	PrintText();
+	//PrintText();
 
 	// set the character size
 	mText.setCharacterSize(48); // in pixels, not points!
@@ -46,22 +45,6 @@ void Text::SetValue(int amount)
 {
 	mValue = amount;
 	PrintText();
-}
-
-void Text::PrintText()
-{
-	switch (mPrintText)
-	{
-	case SCORE:
-		mText.setString("Score : " + std::to_string(mValue));
-		break;
-	case LIFE:
-		mText.setString("Up : " + std::to_string(mValue));
-		break;
-	case DIFFICULTY:
-		mText.setString("Difficute : " + std::to_string(mValue));
-		break;
-	}
 }
 
 int Text::GetValue()

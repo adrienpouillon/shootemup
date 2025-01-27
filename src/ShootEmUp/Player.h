@@ -15,7 +15,7 @@ protected:
 	int tremble;
 	Text* mTextLife;
 public:
-	Player(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position);
+	Player(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife);
 
 	void Move(float timeFrame) override;
 

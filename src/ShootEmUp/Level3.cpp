@@ -6,6 +6,7 @@
 #include "Aureon.h"
 #include "Rat.h"
 #include "Skarnaugh.h"
+#include "Ghost.h"
 #include "Map.h"
 
 //Boite a outil
@@ -13,14 +14,24 @@
 //Aureon(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate)
 //Rat(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate)
 //Skarnaugh(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate)
+//Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, this, coordonate, TIMEGHOSTHIDDEN)
 
-Level3::Level3(Text* score) : Scene(score)
+Level3::Level3(Text* score) : Scene()
 {
+    //texte
+    mScore = score;
+    Add(score);
+    mDifficulty = new Difficulty(sf::Vector2f(100.f, 30.f), 0);
+    Add(mDifficulty);
+    mLife = new Up(sf::Vector2f(100.f, 30.f), 0);
+    Add(mLife);
+
     //premiere entity (joueur ou menu)
     Add(new Map(MAPPATH));
     Add(new Map(MAPPATH));
     mEntities[1]->setPosition(sf::Vector2f(1920, 0));
-    Add(new Player(PLAYERUP*5, PLAYERPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540)));
+    Add(new Player(PLAYERUP*5, PLAYERPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540), mLife));
+    generateEnemy = 1000;
 }
 
 void Level3::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
@@ -117,4 +128,9 @@ void Level3::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         mIsFinich = true;
         break;
     }
+}
+
+int Level3::GetTypeScene()
+{
+    return LEVEL3;
 }

@@ -12,7 +12,7 @@ protected:
 	sf::Text mText;
 	sf::Font mFont;
 public:
-	Text(int printText, sf::Vector2f pos, int value);
+	Text(sf::Vector2f pos, int value);
 
 	void Increase(int amount);
 
@@ -20,7 +20,9 @@ public:
 
 	void SetValue(int amount);
 
-	void PrintText();
+	virtual void PrintText() = 0;
+
+	virtual int GetTypeText() = 0;
 
 	int GetValue();
 

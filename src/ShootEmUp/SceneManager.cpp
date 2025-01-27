@@ -13,10 +13,12 @@ SceneManager::SceneManager()
 	//initialiser mScenes
 
 	//scene menu
-	Text* score = new Text(SCORE, sf::Vector2f(30.f,30.f), 0);
+	Text* score = new Score(sf::Vector2f(30.f,30.f), 0);
 	Add(new Level1(score));
 	Add(new Level2(score));
 	Add(new Level3(score));
+
+	NbScene = 3;
 
 	//definir la scene actif
 	mCurrentScene = mScenes[0];
@@ -87,12 +89,16 @@ Scene* SceneManager::Update(float timeFrame)
 	//si fini
 	if (mCurrentScene->GetIsFinich() == true)
 	{
-		bool isValide = Remove(mCurrentScene);
-		
-		if (isValide == false)
+		for (int i = 0; i < mScenes.size(); i++)
 		{
-			std::cout << "Merci d'avoir joué !!!" << std::endl;
-			exit(0);
+			if (mCurrentScene == mScenes[i])
+			{
+				if (i < NbScene)
+				{
+					std::cout << "Merci d'avoir joué !!!" << std::endl;
+					exit(0);
+				}
+			}
 		}
 	}
 	return mCurrentScene;
