@@ -21,9 +21,11 @@ protected:
 	Text* mLife;
 	bool mLight;
 	bool mIsFinich;
-	int generateEnemy;
+	int mGenerateEnemy;
+	float mTimeGenerate;
+	float mTimeGenerateStay;
 public:
-	Scene();
+	Scene(float timeGenerate);
 
 	void Add(Entity* entity);
 
@@ -37,7 +39,7 @@ public:
 
 	virtual void ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy) = 0;
 
-	void GenerateEnemy();
+	void GenerateEnemy(float timeFrame);
 
 	void IncreaseDifficulty();
 

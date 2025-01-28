@@ -10,8 +10,10 @@
 #include "Map.h"
 #include "Text.h"
 
-Scene::Scene()
+Scene::Scene(float timeGenerate)
 {
+	mTimeGenerate = 
+	mTimeGenerateStay = 0;
 	mLight = false;
 	mIsFinich = false;
 	//mDifficulty->SetValue(17);
@@ -35,7 +37,7 @@ void Scene::Add(Text* text)
 void Scene::Update(float timeFrame)
 {
 	//generer des enemys
-	GenerateEnemy();
+	GenerateEnemy(timeFrame);
 
 	for (int i = 0; i < mEntities.size(); ++i)
 	{
@@ -93,28 +95,33 @@ sf::Vector2f Scene::CoordonnateRandomize(sf::Vector2f min, sf::Vector2f max)
 	return randomCoordonnee;
 }
 
-void Scene::GenerateEnemy()
+void Scene::GenerateEnemy(float timeFrame)
 {
-	//aleatoire
-	int rand = GenerateRandomNumber(0, 1000);//level 1 50 //level 2 200//level 3 1000
-	if (rand == 1)
+	mTimeGenerateStay -= timeFrame;
+	if (mTimeGenerateStay < 0)
 	{
-		
-		//choisir des coordonnees aleatoire dans l'interval fournie 
-		sf::Vector2f coordonate = CoordonnateRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
-
-		//choisir un chiffre environ egale à mDifficulty
-		int moreLess = GenerateRandomNumber(0, 3);
-		int randomEnemy = GenerateRandomNumber(mDifficulty->GetValue() - moreLess, mDifficulty->GetValue() + moreLess);
-
-		//suppression de case -2: et case -1:
-		if (randomEnemy < 0)
+		//aleatoire
+		int rand = GenerateRandomNumber(0, 1000);//level 1 50 //level 2 200//level 3 1000
+		if (rand == 1)
 		{
-			randomEnemy = 0;
-		}
 
-		//choisi l'enemi en fonction de la difficulter et de la scene
-		ChooseEnnemy(coordonate, randomEnemy);
+			//choisir des coordonnees aleatoire dans l'interval fournie 
+			sf::Vector2f coordonate = CoordonnateRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
+
+			//choisir un chiffre environ egale à mDifficulty
+			int moreLess = GenerateRandomNumber(0, 3);
+			int randomEnemy = GenerateRandomNumber(mDifficulty->GetValue() - moreLess, mDifficulty->GetValue() + moreLess);
+
+			//suppression de case -2: et case -1:
+			if (randomEnemy < 0)
+			{
+				randomEnemy = 0;
+			}
+
+			//choisi l'enemi en fonction de la difficulter et de la scene
+			ChooseEnnemy(coordonate, randomEnemy);
+		}
+		mTimeGenerateStay = mTimeGenerate;
 	}
 }
 

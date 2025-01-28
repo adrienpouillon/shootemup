@@ -19,7 +19,7 @@
 //Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate)
 
 
-Level1::Level1(Text* score) : Scene()
+Level1::Level1(Text* score, float timeGenerate) : Scene(timeGenerate)
 {
     //texte
     mScore = score;
@@ -34,7 +34,7 @@ Level1::Level1(Text* score) : Scene()
     Add(new Map(MAPPATH));
     mEntities[1]->setPosition(sf::Vector2f(1920, 0));
     Add(new Player(PLAYERUP, PLAYERPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540), mLife));
-    generateEnemy = 100;
+    mGenerateEnemy = 100;
 }
 
 void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
@@ -46,15 +46,13 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
     case -1:
         break;
     case 0:
-        Add(new Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate));
-        //Add(new Rat(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate));
+        Add(new Rat(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate));
         break;
     case 1:
-        Add(new Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate));
+        Add(new Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN));
         break;
     case 2:
-        Add(new Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN));
-        //Add(new Shot(SHOTTYPEENEMY, SHOTPATH, SHOTVELOCITY, coordonate));
+        Add(new Shot(SHOTTYPEENEMY, SHOTPATH, SHOTVELOCITY, coordonate));
         break;
     case 3:
         Add(new Rat(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate));
@@ -78,7 +76,7 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add(new Rat(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate));
         break;
     case 10:
-        Add(new Aureon(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate));
+        Add(new Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate));
         break;
     case 11:
         Add(new Aureon(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate));
@@ -114,8 +112,35 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
     case 21:
         
         break;
+    case 22:
+
+        break;
+    case 23:
+
+        break;
+    case 24:
+
+        break;
+    case 25:
+
+        break;
+    case 26:
+
+        break;
+    case 27:
+
+        break;
+    case 28:
+
+        break;
+    case 29:
+
+        break;
+    case 30:
+
+        break;
     default:
-        if (mDifficulty->GetValue() > 50)
+        if (mDifficulty->GetValue() > 22)
         {
             mIsFinich = true;
         }

@@ -90,8 +90,10 @@ bool Entity::Collide(std::vector<Entity*> allEntities, int* index)
 		sf::Vector2f entitySize = allEntities[i]->GetSpriteManager()->GetSize();
 		if (allEntities[i] != this)
 		{
-			if (position + size >= entityPosition && position <= entityPosition + entitySize)
+			if (position.x + size.x >= entityPosition.x && position.x <= entityPosition.x + entitySize.x)
 			{
+				if (position.y + size.y >= entityPosition.y && position.y <= entityPosition.y + entitySize.y)
+				{
 					// Les carrés entrent en collision
 					(*index) = i;
 					return true;

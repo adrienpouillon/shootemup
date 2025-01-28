@@ -18,7 +18,7 @@
 //Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN)
 //Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate)
 
-Level3::Level3(Text* score) : Scene()
+Level3::Level3(Text* score, float timeGenerate) : Scene(timeGenerate)
 {
     //texte
     mScore = score;

@@ -19,7 +19,7 @@
 //Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate)
 
 
-Level2::Level2(Text* score) : Scene()
+Level2::Level2(Text* score, float timeGenerate) : Scene(timeGenerate)
 {
     //texte
     mScore = score;
@@ -34,7 +34,7 @@ Level2::Level2(Text* score) : Scene()
     Add(new Map(MAPPATH));
     mEntities[1]->setPosition(sf::Vector2f(1920, 0));
     Add(new Player(PLAYERUP*3, PLAYERPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540), mLife));
-    generateEnemy = 200;
+    mGenerateEnemy = 200;
 }
 
 void Level2::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
