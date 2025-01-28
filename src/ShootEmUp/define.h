@@ -5,6 +5,20 @@
 #define ISNOTDESTROY 0
 #define ISDESTROYINGAME ISNOTDESTROY + 1
 #define ISDESTROYOUTGAME ISDESTROYINGAME + 1
+#define ISDESTROYINGAMESHOT ISDESTROYOUTGAME + 1
+
+#define DIFFICULTYSCENE 10
+#define LEVEL1 1			//1
+#define LEVEL2 LEVEL1 + 1	//2
+#define LEVEL3 LEVEL2 + 1	//3
+
+
+
+
+
+
+//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//
+//	//	//entity
 
 //map
 #define MAPPATH "../../../res/map.png"
@@ -29,6 +43,7 @@
 //type (0 = player,1 = enemie)
 #define SHOTTYPEPLAYER 0
 #define SHOTTYPEENEMY 1
+
 
 //rat
 #define RATUP 1*1
@@ -65,11 +80,12 @@
 #define GHOSTVELOCITY sf::Vector2f::Vector2(GHOSTVELOCITYX, GHOSTVELOCITYY)
 #define TIMEGHOSTHIDDEN 10
 
-
-//shooter
-#define DECISECONDE 0.1f
-#define TIMESHOOT 20
-#define TIMESWAP 60
+//scarabe
+#define SCARABEUP 1*5
+#define SCARABEPATH "../../../res/scarabe_tilemap.png" 
+#define SCARABEVELOCITYX 50.f 
+#define SCARABEVELOCITYY 0.f 
+#define SCARABEVELOCITY sf::Vector2f::Vector2(SCARABEVELOCITYX, SCARABEVELOCITYY)
 
 
 
@@ -81,6 +97,17 @@
 #define COLLIDEAUREON COLLIDERAT + 1		//3
 #define COLLIDESKARNAUGH COLLIDEAUREON + 1	//4
 #define COLLIDEGHOST COLLIDESKARNAUGH + 1	//5
+#define COLLIDESCARABE COLLIDEGHOST + 1		//6
+
+//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//
+
+
+
+//shooter
+#define DECISECONDE 0.1f
+#define TIMESHOOT 20
+#define TIMESWAP 60
+
 
 //score
 #define SCOREDEFAULT 0
@@ -95,8 +122,3 @@
 #define DIFFICULTY LIFE + 1
 
 
-// Scene
-#define DIFFICULTYSCENE 10
-#define LEVEL1 1			//1
-#define LEVEL2 LEVEL1 + 1	//2
-#define LEVEL3 LEVEL2 + 1	//3

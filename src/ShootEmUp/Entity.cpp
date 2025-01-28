@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Entity.h"
+#include "Shot.h"
 #include "define.h"
 #include <iostream>
 
@@ -41,6 +42,7 @@ void Entity::Update(float timeFrame)
 //collision avec un entity
 bool Entity::Collide(std::vector<Entity*> allEntities, int* index)
 {
+	/*
 	sf::Vector2f position(getPosition());
 	sf::Vector2f size(mSpriteManager->GetSize());
 
@@ -61,6 +63,46 @@ bool Entity::Collide(std::vector<Entity*> allEntities, int* index)
 			}
 		}
 	}
+	*/
+	/*//sf::Vector2f position(getPosition());
+	sf::FloatRect rectCollide(mSpriteManager->GetCollision());
+
+	for (int i = allEntities.size() - 1; i > 0; i--)
+	{
+		//sf::Vector2f entityPosition = allEntities[i]->getPosition();
+		sf::FloatRect entityRectCollide(mSpriteManager->GetCollision());
+		if (allEntities[i] != this)
+		{
+			if(rectCollide.intersects(entityRectCollide))
+			{
+				// Les carrés entrent en collision
+				(*index) = i;
+				return true;
+			}
+		}
+	}*/
+	sf::Vector2f position(getPosition());
+	sf::Vector2f size(mSpriteManager->GetSize());
+
+	for (int i = allEntities.size() - 1; i > 0; i--)
+	{
+		sf::Vector2f entityPosition = allEntities[i]->getPosition();
+		sf::Vector2f entitySize = allEntities[i]->GetSpriteManager()->GetSize();
+		if (allEntities[i] != this)
+		{
+			if (position + size >= entityPosition && position <= entityPosition + entitySize)
+			{
+					// Les carrés entrent en collision
+					(*index) = i;
+					return true;
+				}
+			}
+		}
+	}
+/*if (position.GetX() + size.GetX() >= colliderPosition.GetX() && position.GetX() <= colliderPosition.GetX() + colliderSize.GetX() &&
+	position.GetY() + size.GetY() >= colliderPosition.GetY() && position.GetY() <= colliderPosition.GetY() + colliderSize.GetY())
+{*/
+
 	return false;
 }
 
@@ -72,7 +114,15 @@ void Entity::IsCollide(Scene* scene)
 //si mort
 void Entity::IsDead()
 {
-	mIsDestroyed = ISDESTROYINGAME;
+	if ((Shot*)dynamic_cast<Shot*>(this)==nullptr)
+	{
+		mIsDestroyed = ISDESTROYINGAME;
+	}
+	else
+	{
+		mIsDestroyed = ISDESTROYINGAMESHOT;
+	}
+	
 }
 
 
@@ -100,5 +150,11 @@ int Entity::GetScore()
 {
 	return SCOREDEFAULT;
 }
+
+void Entity::SetVelocity(sf::Vector2f velocity)
+{
+	mVelocity = velocity;
+}
+
 
 

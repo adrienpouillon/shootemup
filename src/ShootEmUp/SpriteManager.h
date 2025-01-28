@@ -23,6 +23,8 @@ public:
 
 	sf::Vector2f GetSize();
 
+	sf::FloatRect GetCollision();
+
 	sf::Vector2f GetPosition();
 
 	void Update(float timeFrame);

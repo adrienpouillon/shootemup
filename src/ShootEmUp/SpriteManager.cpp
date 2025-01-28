@@ -94,6 +94,11 @@ sf::Vector2f SpriteManager::GetSize()
     return mCurrentSprite.getGlobalBounds().getSize();
 }
 
+sf::FloatRect SpriteManager::GetCollision()
+{
+    return mCurrentSprite.getGlobalBounds();
+}
+
 sf::Vector2f SpriteManager::GetPosition()
 {
     return mCurrentSprite.getPosition();

@@ -38,4 +38,6 @@ public:
 	virtual int GetType() = 0;
 
 	virtual int GetScore();
+
+	void SetVelocity(sf::Vector2f velocity);
 };

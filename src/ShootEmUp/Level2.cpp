@@ -7,6 +7,7 @@
 #include "Rat.h"
 #include "Skarnaugh.h"
 #include "Ghost.h"
+#include "Scarabe.h"
 #include "Map.h"
 
 //Boite a outil
@@ -14,7 +15,8 @@
 //Aureon(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate)
 //Rat(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate)
 //Skarnaugh(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate)
-//Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, this, coordonate, TIMEGHOSTHIDDEN)
+//Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN)
+//Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate)
 
 
 Level2::Level2(Text* score) : Scene()
@@ -113,9 +115,15 @@ void Level2::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
     case 21:
         
         break;
-    case 22:
-        mIsFinich = true;
-        break;
+    default:
+        if (mDifficulty->GetValue() > 50)
+        {
+            mIsFinich = true;
+        }
+        else
+        {
+            mDifficulty->SetValue(0);
+        }
     }
 }
 

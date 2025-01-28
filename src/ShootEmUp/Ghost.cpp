@@ -5,13 +5,15 @@
 Ghost::Ghost(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, float timeVisible) : Shadow(up, path, light, velocity, position)
 {
     mTimeVisible = timeVisible;
-    mTimeVisibleStay = mTimeVisible;
+    mTimeVisibleStay = mTimeVisible - (mTimeVisible/2);
     IsShadow = true;
+    velocityVisible = velocity;
+    velocityInvisible = velocity / 8.f;
 }
 
 void Ghost::TimeVisibleLess(float n)
 {
-    mTimeVisibleStay -= n;
+    mTimeVisibleStay -= n*3;
     if (mTimeVisibleStay < 0)
     {
         IsShadow = !IsShadow;
@@ -24,9 +26,22 @@ void Ghost::Update(float timeFrame)
 {
     //fin
     IsAlive();
+    UpdateVelocity();
     Entity::Update(timeFrame);
     TimeVisibleLess(timeFrame);
     Texturing();
+}
+
+void Ghost::UpdateVelocity()
+{
+    if (GetIsHidden())
+    {
+        SetVelocity(velocityVisible);
+    }
+    else
+    {
+        SetVelocity(velocityInvisible);
+    }
 }
 
 int Ghost::GetType()
@@ -48,6 +63,7 @@ void Ghost::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     if (mIsHidden == IsShadow)
     {
+        
         states.transform.combine(this->getTransform());
         target.draw(mSpriteManager->GetCurrentSprite(), states);
     }

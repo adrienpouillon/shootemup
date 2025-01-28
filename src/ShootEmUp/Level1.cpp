@@ -7,6 +7,7 @@
 #include "Rat.h"
 #include "Skarnaugh.h"
 #include "Ghost.h"
+#include "Scarabe.h"
 #include "Map.h"
 
 //Boite a outil
@@ -14,7 +15,8 @@
 //Aureon(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate)
 //Rat(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate)
 //Skarnaugh(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate)
-//Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, this, coordonate, TIMEGHOSTHIDDEN)
+//Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN)
+//Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate)
 
 
 Level1::Level1(Text* score) : Scene()
@@ -44,11 +46,11 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
     case -1:
         break;
     case 0:
-        Add(new Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN));
+        Add(new Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate));
         //Add(new Rat(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate));
         break;
     case 1:
-        Add(new Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN));
+        Add(new Scarabe(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate));
         break;
     case 2:
         Add(new Ghost(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN));
@@ -112,8 +114,15 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
     case 21:
         
         break;
-    case 22:
-        mIsFinich = true;
+    default:
+        if (mDifficulty->GetValue() > 50)
+        {
+            mIsFinich = true;
+        }
+        else
+        {
+            mDifficulty->SetValue(0);
+        }
         break;
     }
 }

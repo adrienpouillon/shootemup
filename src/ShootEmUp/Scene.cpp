@@ -61,6 +61,12 @@ void Scene::Update(float timeFrame)
 			delete* it;
 			it = mEntities.erase(it);
 		}
+		else if(is == ISDESTROYINGAMESHOT)
+		{
+			mScore->Increase((*it)->GetScore());
+			delete* it;
+			it = mEntities.erase(it);
+		}
 		else
 		{
 			++it;
@@ -118,7 +124,7 @@ void Scene::IncreaseDifficulty()
 	for (int i = 0; i < DIFFICULTYSCENE; i+= type)
 	{
 		int rand = GenerateRandomNumber(0, 100);
-		if (rand == 5)
+		if (rand == 5 || rand == 10)
 		{
 			mDifficulty->Increase(1);
 		}
