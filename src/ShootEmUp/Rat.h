@@ -7,7 +7,9 @@ class Rat : public Shadow
 protected:
 
 public:
-	Rat(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position);
+	Rat();
+
+	virtual void Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position);
 
 	void Update(float timeFrame) override;
 

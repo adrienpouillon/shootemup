@@ -14,9 +14,9 @@ SceneManager::SceneManager()
 
 	//scene menu
 	Text* score = new Score(sf::Vector2f(30.f,30.f), 0);
-	Add(new Level1(score));
-	Add(new Level2(score));
-	Add(new Level3(score));
+	Add<Level1>()->Init(score, 0.25f);
+	Add<Level2>()->Init(score, 0.05f);
+	Add<Level3>()->Init(score, 0.025f);
 
 	NbScene = 3;
 

@@ -15,7 +15,9 @@ protected:
 	float mElapsedTime;
 
 public:
-	Shooter(Scene* Scene);
+	Shooter();
+
+	virtual void Init(Scene* Scene);
 
 	void Update(float timeFrame);
 

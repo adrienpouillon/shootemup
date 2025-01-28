@@ -3,8 +3,13 @@
 #include "define.h"
 
 
-Map::Map(std::string path) : Entity(path, sf::Vector2f(50.f, 0.f), sf::Vector2f(0.f, 0.f), 0)
-{//vide
+Map::Map() : Entity()
+{
+}
+
+void Map::Init(std::string path)
+{
+	Entity::Init(path, sf::Vector2f(50.f, 0.f), sf::Vector2f(0.f, 0.f), 0);
 }
 
 void Map::Move(float timeFrame)

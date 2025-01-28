@@ -2,10 +2,16 @@
 #include "Ghost.h"
 #include "define.h"
 
-Ghost::Ghost(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, float timeVisible) : Shadow(up, path, light, velocity, position)
+Ghost::Ghost() : Shadow()
 {
+    
+}
+
+void Ghost::Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, float timeVisible)
+{
+    Shadow::Init(up, path, light, velocity, position);
     mTimeVisible = timeVisible;
-    mTimeVisibleStay = mTimeVisible - (mTimeVisible/2);
+    mTimeVisibleStay = mTimeVisible - (mTimeVisible / 2);
     IsShadow = true;
     velocityVisible = velocity;
     velocityInvisible = velocity / 8.f;

@@ -10,7 +10,9 @@ class Skarnaugh :public Light, public Shooter
 protected:
 
 public:
-	Skarnaugh(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position);
+	Skarnaugh();
+
+	virtual void Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position);
 
 	void Update(float timeFrame) override;
 

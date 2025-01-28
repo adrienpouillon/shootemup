@@ -4,8 +4,13 @@
 #include <iostream>
 
 
-Rat::Rat(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position) : Shadow(up, path, light, velocity, position)
+Rat::Rat() : Shadow()
 {//vide
+}
+
+void Rat::Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position)
+{
+    Shadow::Init(up, path, light, velocity, position);
 }
 
 //mise a jour

@@ -5,7 +5,9 @@
 class Map : public Entity
 {
 public:
-	Map(std::string path);
+	Map();
+	
+	virtual void Init(std::string path);
 
 	void Move(float timeFrame);
 

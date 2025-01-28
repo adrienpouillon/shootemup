@@ -12,10 +12,13 @@ class Player : public Character, public Shooter
 {
 protected:
 	bool* mLight;
+	int mTouch;
 	int tremble;
 	Text* mTextLife;
 public:
-	Player(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife);
+	Player();
+	
+	virtual void Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife);
 
 	void Move(float timeFrame) override;
 
@@ -23,7 +26,9 @@ public:
 
 	void Swap();
 
-	void IsCollide(Scene* scene) override;
+	void IsCollide(Scene* scene, float timeFrame) override;
+
+	virtual void TakeDamage();
 
 	void Update(float timeFrame) override;
 

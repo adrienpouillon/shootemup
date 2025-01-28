@@ -1,15 +1,24 @@
 #include "pch.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Shot.h"
 #include <iostream>
 #include "define.h"
 
-Player::Player(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife) : Character(up, path, velocity, position), Shooter(Scene)
+Player::Player() : Character(), Shooter()
 {
+    
+}
+
+void Player::Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife)
+{
+    Character::Init(up, path, velocity, position);
+    Shooter::Init(Scene);
     mCooldownSwap = 0;
     mLight = light;
     tremble = 1;
     mTextLife = TextLife;//new Text(LIFE, sf::Vector2f(200.f, 30.f), up);
+    mTouch = 0;
 }
 
 //deplacer + input
@@ -23,7 +32,7 @@ void Player::Move(float timeFrame)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
 
-            x = getPosition().x - mVelocity.x * timeFrame;
+            x = getPosition().x - mVelocity.x * timeFrame/20;
             y = getPosition().y;
             if (x < 0)
             {
@@ -34,7 +43,7 @@ void Player::Move(float timeFrame)
         //droite
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            x = getPosition().x + mVelocity.x * timeFrame*2;
+            x = getPosition().x + mVelocity.x * timeFrame*8;//2
             y = getPosition().y;
             if (x > 1860)
             {
@@ -46,7 +55,7 @@ void Player::Move(float timeFrame)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
             x = getPosition().x;
-            y = getPosition().y - mVelocity.y * (timeFrame);
+            y = getPosition().y - mVelocity.y * (timeFrame) / 20;
             if (y < 60)
             {
                 y = getPosition().y;
@@ -57,7 +66,7 @@ void Player::Move(float timeFrame)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
             x = getPosition().x;
-            y = getPosition().y + mVelocity.y *timeFrame*2;
+            y = getPosition().y + mVelocity.y *timeFrame*8;//2
             if (y > 944)
             {
                 y = getPosition().y;
@@ -111,35 +120,58 @@ void Player::Update(float timeFrame)
     Swap();
 }
 
-void Player::IsCollide(Scene* scene)
+void Player::IsCollide(Scene* scene, float timeFrame)
 {
-    int index = 0;
-    std::vector<Entity*> allEntities = scene->GetEntities();
-    if (Collide(allEntities, &index) == true)
+    //delai d'invincibiliter
+    if (mTouch >= 0.f)
     {
-        if (allEntities[index]->GetType() == COLLIDESHOT)
+        mTouch -= timeFrame;
+    }
+    bool touch = false;
+
+    std::vector<Shot*> allShot = scene->GetAllEntity<Shot>();
+    if (Shot* shot = Collide<Shot*, Player*>(allShot, this))
+    {
+        if (shot->GetType() == COLLIDESHOT)
         {
-            if (((Shot*)allEntities[index])->GetMType() == 1)
+            if (shot->GetMType() == 1)
             {
-                std::cout << allEntities[index]->GetType();
                 //detruire l'entite toucher
-                allEntities[index]->IsDead();
+                shot->IsDead();
 
                 //perdre une vie
-                TakeDamage();
+                touch = true;
             }
         }
-        else if(allEntities[index]->GetType() > COLLIDEPLAYER)
+    }
+
+    std::vector<Enemy*> allEnemy = scene->GetAllEntity<Enemy>();
+    if (Enemy* enemy = Collide<Enemy*, Player*>(allEnemy, this))
+    {
+        if(enemy->GetType() > COLLIDEPLAYER)
         {
-            std::cout << allEntities[index]->GetType();
             //detruire l'entite toucher
-            allEntities[index]->IsDead();
+            enemy->IsDead();
 
             //perdre une vie
-            TakeDamage();
+            touch = true;
         }
-
     }
+
+    if (touch==true)
+    {
+        //perdre une vie
+        TakeDamage();
+    }
+}
+
+void Player::TakeDamage()
+{
+    if (mTouch <= 0.f)
+    {
+        Character::TakeDamage();
+    }
+    mTouch = 4.f;
 }
 
 int Player::GetType()

@@ -4,8 +4,14 @@
 #include "Ghost.h"
 #include <iostream>
 
-Shot::Shot(int type, std::string path, sf::Vector2f velocity, sf::Vector2f position) : Entity(path, velocity, position, 1)
+Shot::Shot() : Entity()
 {
+    
+}
+
+void Shot::Init(int type, std::string path, sf::Vector2f velocity, sf::Vector2f position)
+{
+    Entity::Init(path, velocity, position, 1);
     //type (0 = player,1 = enemie)
     mType = type;
 }
@@ -16,15 +22,36 @@ void Shot::Update(float timeFrame)
     Entity::Update(timeFrame);
 }
 
-void Shot::IsCollide(Scene* scene)
+void Shot::IsCollide(Scene* scene, float timeFrame)
 {
-    int index = 0;
-    std::vector<Entity*> allEntities = scene->GetEntities();
-    if (Collide(allEntities, &index) == true)
+    if (mType == 0)
     {
-        if (mType == 0)
+        std::vector<Enemy*> allEnemy = scene->GetAllEntity<Enemy>();
+        if (Enemy* enemy = Collide<Enemy*, Shot*>(allEnemy, this))
         {
             //balle creer par le joueur
+            if (enemy->GetType() > COLLIDEPLAYER)
+            {
+                //tuer tout les enemies
+                //detruire l'entite toucher
+                if (enemy->GetType() != COLLIDEGHOST)//(Ghost*)dynamic_cast<Ghost*>(allEntities[index]) == nullptr)
+                {
+                    ((Character*)enemy)->TakeDamage();
+                }
+                else
+                {
+                    if (((Ghost*)enemy)->GetIsHidden())
+                    {
+                        ((Character*)enemy)->TakeDamage();
+                    }
+                }
+                //se detruire
+                IsDead();
+            }
+
+
+
+            /*//balle creer par le joueur
             if (allEntities[index]->GetType() > COLLIDEPLAYER)
             {
                 //tuer tout les enemies
@@ -42,10 +69,8 @@ void Shot::IsCollide(Scene* scene)
                 }
                 //se detruire
                 IsDead();
-            }
-        }
-        else if(mType == 1)
-        {
+            }*/
+        
             //balle creer par les enemies
             /*if (allEntities[index]->GetType() == TYPEPLAYER)
             {
@@ -57,6 +82,10 @@ void Shot::IsCollide(Scene* scene)
                 IsDead();
             }*/
         }
+    }
+    else if (mType == 1)
+    {
+
     }
 }
 

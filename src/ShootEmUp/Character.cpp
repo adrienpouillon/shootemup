@@ -2,8 +2,14 @@
 #include "Character.h"
 #include <iostream>
 
-Character::Character(int up, std::string path, sf::Vector2f velocity, sf::Vector2f position) : Entity(path, velocity, position, 1)
+Character::Character() : Entity()
 {
+	
+}
+
+void Character::Init(int up, std::string path, sf::Vector2f velocity, sf::Vector2f position)
+{
+	Entity::Init(path, velocity, position, 1);
 	mUp = up;
 }
 

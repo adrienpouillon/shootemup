@@ -1,8 +1,13 @@
 #include "pch.h"
 #include "Scarabe.h"
 
-Scarabe::Scarabe(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position) :Shadow(up, path, light, velocity, position)
+Scarabe::Scarabe() :Shadow()
 {
+}
+
+void Scarabe::Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position)
+{
+    Shadow::Init(up, path, light, velocity, position);
 }
 
 void Scarabe::Update(float timeFrame)

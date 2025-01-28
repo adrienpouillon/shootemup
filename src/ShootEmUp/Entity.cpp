@@ -4,7 +4,11 @@
 #include "define.h"
 #include <iostream>
 
-Entity::Entity(std::string path, sf::Vector2f velocity, sf::Vector2f position, bool isEntity)
+Entity::Entity()
+{
+}
+
+void Entity::Init(std::string path, sf::Vector2f velocity, sf::Vector2f position, bool isEntity)
 {
 	mIsDestroyed = false;
 	mSpriteManager = new SpriteManager(path, isEntity);
@@ -39,76 +43,7 @@ void Entity::Update(float timeFrame)
 	IsExitMap();
 }
 
-//collision avec un entity
-bool Entity::Collide(std::vector<Entity*> allEntities, int* index)
-{
-	/*
-	sf::Vector2f position(getPosition());
-	sf::Vector2f size(mSpriteManager->GetSize());
-
-	for (int i = allEntities.size() - 1; i > 0; i--)
-	{
-		sf::Vector2f entityPosition = allEntities[i]->getPosition();
-		sf::Vector2f entitySize = allEntities[i]->GetSpriteManager()->GetSize();
-		if (allEntities[i] != this)
-		{
-			if (position.x >= entityPosition.x && position.x < entityPosition.x + entitySize.x)
-			{
-				if (position.y >= entityPosition.y && position.y < entityPosition.y + entitySize.y)
-				{
-					// Les carrés entrent en collision
-					(*index) = i;
-					return true;
-				}
-			}
-		}
-	}
-	*/
-	/*//sf::Vector2f position(getPosition());
-	sf::FloatRect rectCollide(mSpriteManager->GetCollision());
-
-	for (int i = allEntities.size() - 1; i > 0; i--)
-	{
-		//sf::Vector2f entityPosition = allEntities[i]->getPosition();
-		sf::FloatRect entityRectCollide(mSpriteManager->GetCollision());
-		if (allEntities[i] != this)
-		{
-			if(rectCollide.intersects(entityRectCollide))
-			{
-				// Les carrés entrent en collision
-				(*index) = i;
-				return true;
-			}
-		}
-	}*/
-	sf::Vector2f position(getPosition());
-	sf::Vector2f size(mSpriteManager->GetSize());
-
-	for (int i = allEntities.size() - 1; i > 0; i--)
-	{
-		sf::Vector2f entityPosition = allEntities[i]->getPosition();
-		sf::Vector2f entitySize = allEntities[i]->GetSpriteManager()->GetSize();
-		if (allEntities[i] != this)
-		{
-			if (position.x + size.x >= entityPosition.x && position.x <= entityPosition.x + entitySize.x)
-			{
-				if (position.y + size.y >= entityPosition.y && position.y <= entityPosition.y + entitySize.y)
-				{
-					// Les carrés entrent en collision
-					(*index) = i;
-					return true;
-				}
-			}
-		}
-	}
-/*if (position.GetX() + size.GetX() >= colliderPosition.GetX() && position.GetX() <= colliderPosition.GetX() + colliderSize.GetX() &&
-	position.GetY() + size.GetY() >= colliderPosition.GetY() && position.GetY() <= colliderPosition.GetY() + colliderSize.GetY())
-{*/
-
-	return false;
-}
-
-void Entity::IsCollide(Scene* scene)
+void Entity::IsCollide(Scene* scene, float timeFrame)
 {
 
 }
@@ -116,7 +51,7 @@ void Entity::IsCollide(Scene* scene)
 //si mort
 void Entity::IsDead()
 {
-	if ((Shot*)dynamic_cast<Shot*>(this)==nullptr)
+	if (dynamic_cast<Shot*>(this)==nullptr)
 	{
 		mIsDestroyed = ISDESTROYINGAME;
 	}
@@ -126,7 +61,6 @@ void Entity::IsDead()
 	}
 	
 }
-
 
 //si sorti de la map
 void Entity::IsExitMap()

@@ -2,8 +2,14 @@
 #include "Skarnaugh.h"
 #include <iostream>
 
-Skarnaugh::Skarnaugh(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position) : Light(up, path, light, velocity, position), Shooter(Scene)
+Skarnaugh::Skarnaugh() : Light(), Shooter()
 {//vide
+}
+
+void Skarnaugh::Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position)
+{
+    Light::Init(up, path, light, velocity, position);
+    Shooter::Init(Scene);
 }
 
 // mise a jour

@@ -9,7 +9,9 @@ protected:
 	sf::Vector2f velocityVisible;
 	sf::Vector2f velocityInvisible;
 public:
-	Ghost(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, float timeVisible);
+	Ghost();
+
+	virtual void Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, float timeVisible);
 
 	void TimeVisibleLess(float n);
 

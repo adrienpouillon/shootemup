@@ -6,7 +6,9 @@ class Scarabe :public Shadow
 protected:
 	
 public:
-	Scarabe(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position);
+	Scarabe();
+
+	virtual void Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position);
 
 	void Update(float timeFrame);
 

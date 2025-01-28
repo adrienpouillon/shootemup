@@ -8,7 +8,9 @@ protected:
 	bool mIsHidden;
 
 public:
-	Enemy(int up, std::string path, sf::Vector2f velocity, sf::Vector2f position);
+	Enemy();
+
+	virtual void Init(int up, std::string path, sf::Vector2f velocity, sf::Vector2f position);
 
 	virtual void Texturing() = 0;
 

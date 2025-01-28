@@ -6,7 +6,12 @@
 
 
 
-Shooter::Shooter(Scene* Scene)
+Shooter::Shooter()
+{
+    
+}
+
+void Shooter::Init(Scene* Scene)
 {
     mScene = Scene;
     mCooldownSwap = 0;
@@ -34,11 +39,11 @@ void Shooter::Shoot(int time, int type, sf::Vector2f position)
     {
         if (type == TYPEPLAYER)
         {
-            mScene->Add(new Shot(type, SHOTPATH, -SHOTVELOCITY, position));
+            mScene->Add<Shot>()->Init(type, SHOTPATH, -SHOTVELOCITY, position);
         }
         else
         {
-            mScene->Add(new Shot(type, SHOTPATH, SHOTVELOCITY, position));
+            mScene->Add<Shot>()->Init(type, SHOTPATH, SHOTVELOCITY, position);
         }
         mCooldownShoot = time;
     }

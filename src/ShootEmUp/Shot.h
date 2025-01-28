@@ -11,11 +11,13 @@ protected:
 	int mType;
 
 public:
-	Shot(int type, std::string path, sf::Vector2f velocity, sf::Vector2f position);
+	Shot();
+	
+	virtual void Init(int type, std::string path, sf::Vector2f velocity, sf::Vector2f position);
 
 	void Update(float timeFrame);
 
-	void IsCollide(Scene* scene) override;
+	void IsCollide(Scene* scene, float timeFrame) override;
 
 	int GetType() override;
 

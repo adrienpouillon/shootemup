@@ -3,8 +3,14 @@
 #include <iostream>
 
 
-Shadow::Shadow(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position) : Enemy(up, path, velocity, position)
+Shadow::Shadow() : Enemy()
 {
+	
+}
+
+void Shadow::Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position)
+{
+	Enemy::Init(up, path, velocity, position);
 	mLight = light;
 }
 

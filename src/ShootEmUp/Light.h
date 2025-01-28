@@ -8,7 +8,9 @@ protected:
 	bool* mLight;
 
 public:
-	Light(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position);
+	Light();
+
+	virtual void Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position);
 
 	void Texturing() override;
 };

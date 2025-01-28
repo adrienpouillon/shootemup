@@ -10,9 +10,14 @@
 #include "Map.h"
 #include "Text.h"
 
-Scene::Scene(float timeGenerate)
+Scene::Scene()
 {
-	mTimeGenerate = 
+	
+}
+
+void Scene::Init(float timeGenerate)
+{
+	mTimeGenerate = timeGenerate;
 	mTimeGenerateStay = 0;
 	mLight = false;
 	mIsFinich = false;
@@ -43,7 +48,7 @@ void Scene::Update(float timeFrame)
 	{
 		//updater
 		mEntities[i]->Update(timeFrame);
-		mEntities[i]->IsCollide(this);
+		mEntities[i]->IsCollide(this, timeFrame);
 	}
 	//std::cout<< mDifficulty->GetValue() << std::endl;
 	//destruction
@@ -98,12 +103,12 @@ sf::Vector2f Scene::CoordonnateRandomize(sf::Vector2f min, sf::Vector2f max)
 void Scene::GenerateEnemy(float timeFrame)
 {
 	mTimeGenerateStay -= timeFrame;
-	if (mTimeGenerateStay < 0)
+	if (mTimeGenerateStay < 0.f)
 	{
 		//aleatoire
-		int rand = GenerateRandomNumber(0, 1000);//level 1 50 //level 2 200//level 3 1000
-		if (rand == 1)
-		{
+		//int rand = GenerateRandomNumber(0, 10);//level 1 50 //level 2 200//level 3 1000
+		//if (rand == 1)
+		//{
 
 			//choisir des coordonnees aleatoire dans l'interval fournie 
 			sf::Vector2f coordonate = CoordonnateRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
@@ -120,7 +125,7 @@ void Scene::GenerateEnemy(float timeFrame)
 
 			//choisi l'enemi en fonction de la difficulter et de la scene
 			ChooseEnnemy(coordonate, randomEnemy);
-		}
+		//}
 		mTimeGenerateStay = mTimeGenerate;
 	}
 }

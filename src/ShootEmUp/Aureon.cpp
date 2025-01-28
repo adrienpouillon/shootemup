@@ -3,8 +3,14 @@
 #include <iostream>
 
 
-Aureon::Aureon(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position) : Light(up, path, light, velocity, position), Shooter(Scene)
+Aureon::Aureon() : Light(), Shooter()
 {//vide
+}
+
+void Aureon::Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position)
+{
+    Light::Init(up, path, light, velocity, position);
+    Shooter::Init(Scene);
 }
 
 // mise a jour
