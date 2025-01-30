@@ -8,12 +8,11 @@ Entity::Entity()
 {
 }
 
-void Entity::Init(std::string path, sf::Vector2f velocity, sf::Vector2f position, bool isEntity)
+void Entity::Init(sf::Vector2f velocity, sf::Vector2f position)
 {
 	mIsDestroyed = false;
-	mSpriteManager = new SpriteManager(path, isEntity);
 	mVelocity = velocity;
-	setPosition(position);
+	SetPosition(position);
 }
 
 //Move() + Attack()
@@ -26,7 +25,15 @@ void Entity::Action(float timeFrame)
 //deplacement de l'entitee
 void Entity::Move(float timeFrame)
 {
-	setPosition(sf::Vector2f(getPosition().x - mVelocity.x * timeFrame, getPosition().y - mVelocity.y * timeFrame));
+	SetPosition(sf::Vector2f(GetPosition().x - mVelocity.x * timeFrame, GetPosition().y - mVelocity.y * timeFrame));
+}
+
+void Entity::MoveY()
+{
+	if (GetPosition().y > 945 || GetPosition().y < 60)
+	{
+		mVelocity = -mVelocity;
+	}
 }
 
 //lancer creer une balle
@@ -39,7 +46,6 @@ void Entity::Attack()
 void Entity::Update(float timeFrame)
 {
 	Action(timeFrame);
-	mSpriteManager->Update(timeFrame);
 	IsExitMap();
 }
 
@@ -65,7 +71,7 @@ void Entity::IsDead()
 //si sorti de la map
 void Entity::IsExitMap()
 {
-	if (getPosition().x < -500 || getPosition().x > 2520 || getPosition().y < -500 || getPosition().y > 1580)
+	if (GetPosition().x < -500 || GetPosition().x > 2520 || GetPosition().y < -500 || GetPosition().y > 1580)
 	{
          mIsDestroyed = ISDESTROYOUTGAME;
 	}
@@ -75,11 +81,6 @@ void Entity::IsExitMap()
 int Entity::GetIsDestroyed()
 {
 	return mIsDestroyed;
-}
-
-SpriteManager* Entity::GetSpriteManager()
-{
-	return mSpriteManager;
 }
 
 int Entity::GetScore()

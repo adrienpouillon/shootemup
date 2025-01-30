@@ -1,7 +1,7 @@
 #pragma once
 #include "Shadow.h"
 #include "Define.h"
-class Scarabe :public Shadow
+class Scarabe :public Enemy, public Shadow
 {
 protected:
 	
@@ -16,6 +16,11 @@ public:
 
 	int GetScore();
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	SpriteManager* GetSpriteManager();
+
+	sf::Vector2f GetPosition();
+
+	void SetPosition(sf::Vector2f pos);
+
 };
 

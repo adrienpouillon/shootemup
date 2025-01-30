@@ -2,14 +2,16 @@
 #include "Ghost.h"
 #include "define.h"
 
-Ghost::Ghost() : Shadow()
+Ghost::Ghost() : Enemy(), Shadow()
 {
     
 }
 
 void Ghost::Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, float timeVisible)
 {
-    Shadow::Init(up, path, light, velocity, position);
+    Enemy::Init(up, velocity, position);
+    Shadow::Init(light, path);
+
     mTimeVisible = timeVisible;
     mTimeVisibleStay = mTimeVisible - (mTimeVisible / 2);
     IsShadow = true;
@@ -34,8 +36,8 @@ void Ghost::Update(float timeFrame)
     IsAlive();
     UpdateVelocity();
     Entity::Update(timeFrame);
+    Twilight::Update(timeFrame);
     TimeVisibleLess(timeFrame);
-    Texturing();
 }
 
 void Ghost::UpdateVelocity()
@@ -65,12 +67,25 @@ int Ghost::GetScore()
     return SCOREENEMY * (GHOSTUP + ((int)GHOSTVELOCITYX / 100));
 }
 
+SpriteManager* Ghost::GetSpriteManager()
+{
+    return mSpriteManager;
+}
+
+sf::Vector2f Ghost::GetPosition()
+{
+    return getPosition();
+}
+
+void Ghost::SetPosition(sf::Vector2f pos)
+{
+    return setPosition(pos);
+}
+
 void Ghost::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     if (mIsHidden == IsShadow)
     {
-        
-        states.transform.combine(this->getTransform());
-        target.draw(mSpriteManager->GetCurrentSprite(), states);
+        Twilight::draw(target, states);
     }
 }

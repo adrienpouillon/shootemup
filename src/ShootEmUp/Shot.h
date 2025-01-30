@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Twilight.h"
 #include "Entity.h"
 #include "Scene.h"
 
@@ -13,11 +13,15 @@ protected:
 public:
 	Shot();
 	
-	virtual void Init(int type, std::string path, sf::Vector2f velocity, sf::Vector2f position);
+	virtual void Init(int type, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position);
 
-	void Update(float timeFrame);
+	virtual void Update(float timeFrame);
 
 	void IsCollide(Scene* scene, float timeFrame) override;
+
+	virtual void TouchEntity();
+
+	virtual bool CanCollideWithEntity(Twilight* entity) = 0;
 
 	int GetType() override;
 
@@ -25,5 +29,5 @@ public:
 
 	int GetScore() override;
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	virtual SpriteManager* GetSpriteManager() = 0;
 };

@@ -2,13 +2,14 @@
 #include "Skarnaugh.h"
 #include <iostream>
 
-Skarnaugh::Skarnaugh() : Light(), Shooter()
+Skarnaugh::Skarnaugh() : Enemy(), Light(), Shooter()
 {//vide
 }
 
 void Skarnaugh::Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position)
 {
-    Light::Init(up, path, light, velocity, position);
+    Enemy::Init(up, velocity, position);
+    Light::Init(light, path);
     Shooter::Init(Scene);
 }
 
@@ -22,7 +23,7 @@ void Skarnaugh::Update(float timeFrame)
     //fin 
     IsAlive();
     Entity::Update(timeFrame);
-    Texturing();
+    Twilight::Update(timeFrame);
 }
 
 int Skarnaugh::GetType()
@@ -35,11 +36,18 @@ int Skarnaugh::GetScore()
     return SCOREENEMY * (SKARNAUGHUP + ((int)SKARNAUGHVELOCITYX / 100) + (TIMESWAP - TIMESKARNAUGH));
 }
 
-void Skarnaugh::draw(sf::RenderTarget& target, sf::RenderStates states) const
+SpriteManager* Skarnaugh::GetSpriteManager()
 {
-    if (mIsHidden == false)
-    {
-        states.transform.combine(this->getTransform());
-        target.draw(mSpriteManager->GetCurrentSprite(), states);
-    }
+    return mSpriteManager;
 }
+
+sf::Vector2f Skarnaugh::GetPosition()
+{
+    return getPosition();
+}
+
+void Skarnaugh::SetPosition(sf::Vector2f pos)
+{
+    return setPosition(pos);
+}
+

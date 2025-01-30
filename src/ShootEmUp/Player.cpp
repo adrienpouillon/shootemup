@@ -1,21 +1,29 @@
 #include "pch.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Shot.h"
-#include <iostream>
 #include "define.h"
 
-Player::Player() : Character(), Shooter()
+#include "Ball.h"
+#include "VoltBall.h"
+#include "LightBall.h"
+#include "ShadowBall.h"
+#include "RocBall.h"
+#include "MultiBall.h"
+
+#include <iostream>
+
+
+Player::Player() : Character(), Shooter(), Twilight()
 {
     
 }
 
 void Player::Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife)
 {
-    Character::Init(up, path, velocity, position);
+    Twilight::Init(light, path);
+    Character::Init(up, velocity, position);
     Shooter::Init(Scene);
     mCooldownSwap = 0;
-    mLight = light;
     tremble = 1;
     mTextLife = TextLife;//new Text(LIFE, sf::Vector2f(200.f, 30.f), up);
     mTouch = 0;
@@ -26,69 +34,69 @@ void Player::Move(float timeFrame)
 {
     if (mCooldownSwap < TIMEPLAYERSWAP / 2)
     {
-        int x = getPosition().x;
-        int y = getPosition().y;
+        float x = GetPosition().x;
+        float y = GetPosition().y;
         //gauche
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
 
-            x = getPosition().x - mVelocity.x * timeFrame/20;
-            y = getPosition().y;
+            x = GetPosition().x - mVelocity.x * timeFrame;// / 20;
+            y = GetPosition().y;
             if (x < 0)
             {
-                x = getPosition().x;
+                x = GetPosition().x;
             }
         }
 
         //droite
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            x = getPosition().x + mVelocity.x * timeFrame*8;//2
-            y = getPosition().y;
+            x = GetPosition().x + mVelocity.x * timeFrame*2;//8;//2
+            y = GetPosition().y;
             if (x > 1860)
             {
-                x = getPosition().x;
+                x = GetPosition().x;
             }
         }
 
         //haut
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            x = getPosition().x;
-            y = getPosition().y - mVelocity.y * (timeFrame) / 20;
+            x = GetPosition().x;
+            y = GetPosition().y - mVelocity.y * (timeFrame);// / 20;
             if (y < 60)
             {
-                y = getPosition().y;
+                y = GetPosition().y;
             }
         }
 
         //bas
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-            x = getPosition().x;
-            y = getPosition().y + mVelocity.y *timeFrame*8;//2
+            x = GetPosition().x;
+            y = GetPosition().y + mVelocity.y * timeFrame * 2;//8;//2
             if (y > 944)
             {
-                y = getPosition().y;
+                y = GetPosition().y;
             }
         }
 
-        setPosition(sf::Vector2f(x, y));
+        SetPosition(sf::Vector2f(x, y));
     }
     else
     {
         //tremblement
-        int x = getPosition().x + tremble * 10;
-        int y = getPosition().y;
+        float x = GetPosition().x + tremble * 10;
+        float y = GetPosition().y;
         if (x < 0)
         {
-            x = getPosition().x;
+            x = GetPosition().x;
         }
         if (x > 1860)
         {
-            x = getPosition().x;
+            x = GetPosition().x;
         }
-        setPosition(sf::Vector2f(x, y));
+        SetPosition(sf::Vector2f(x, y));
         tremble = -tremble;
     }
 }
@@ -98,7 +106,10 @@ void Player::Attack()
     Entity::Attack();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        Shooter::Shoot(TIMEPLAYERSHOOT, TYPEPLAYER, getPosition());
+        if(Ball* ball = Shoot<Ball>(TIMEPLAYERSHOOT))
+        {
+            ball->Init(SHOTTYPEPLAYER, SHOTPATH, mLight, -SHOTVELOCITY, GetPosition());
+        }
     }
 }
 
@@ -117,6 +128,7 @@ void Player::Update(float timeFrame)
     mTextLife->SetValue(mUp);
     Shooter::Update(timeFrame);
     Entity::Update(timeFrame);
+    Twilight::Update(timeFrame);
     Swap();
 }
 
@@ -184,8 +196,17 @@ int Player::GetScore()
     return SCOREPLAYER;
 }
 
-void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
+SpriteManager* Player::GetSpriteManager()
 {
-	states.transform.combine(this->getTransform());
-	target.draw(mSpriteManager->GetCurrentSprite(), states);
+    return mSpriteManager;
+}
+
+sf::Vector2f Player::GetPosition()
+{
+    return getPosition();
+}
+
+void Player::SetPosition(sf::Vector2f pos)
+{
+    return setPosition(pos);
 }

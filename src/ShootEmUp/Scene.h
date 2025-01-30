@@ -8,6 +8,8 @@
 
 class Entity;
 
+class Twilight;
+
 
 class Scene : public sf::Drawable
 {
@@ -40,7 +42,7 @@ public:
 
 	int GenerateRandomNumber(int min, int max);
 
-	sf::Vector2f CoordonnateRandomize(sf::Vector2f min, sf::Vector2f max);
+	sf::Vector2f ValueRandomize(sf::Vector2f min, sf::Vector2f max);
 
 	virtual void ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy) = 0;
 
@@ -62,6 +64,12 @@ public:
 	template<typename T>
 	std::vector<T*> GetAllEntity();
 
+	template<typename T, typename A>
+	T GetTypeConvert(A TypeA);
+
+	template<typename T, typename A>
+	std::vector<T*> GetAllTypeConvert(std::vector<A*> tabTypeA);
+
 	template<typename T>
 	T* GetText();
 
@@ -70,6 +78,12 @@ public:
 
 	// Hérité via Drawable
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+	template<typename T>
+	std::vector<T*> GetAllEntity() const;
+
+	template<typename T>
+	std::vector<T*> GetAllText() const;
 };
 
 template<typename T>
@@ -93,6 +107,7 @@ inline T* Scene::GetEntity()
 	return nullptr;
 }
 
+//si modifier voir aussi la fonction constante
 template<typename T>
 inline std::vector<T*> Scene::GetAllEntity()
 {
@@ -105,6 +120,30 @@ inline std::vector<T*> Scene::GetAllEntity()
 		}
 	}
 	return allT;
+}
+
+template<typename T, typename A>
+inline T Scene::GetTypeConvert(A TypeA)
+{
+	if (T entityConvert = dynamic_cast<T>(TypeA))
+	{
+		return entityConvert;
+	}
+	return nullptr;
+}
+
+template<typename T, typename A>
+inline std::vector<T*> Scene::GetAllTypeConvert(std::vector<A*> tabTypeA)
+{
+	std::vector<T*> allTypeT;
+	for (int i = 0; i < tabTypeA.size(); ++i)
+	{
+		if (T* entityConvert = dynamic_cast<T*>(tabTypeA[i]))
+		{
+			allTypeT.push_back(entityConvert);
+		}
+	}
+	return allTypeT;
 }
 
 template<typename T>
@@ -120,8 +159,39 @@ inline T* Scene::GetText()
 	return nullptr;
 }
 
+//si modifier voir aussi la fonction constante
 template<typename T>
 inline std::vector<T*> Scene::GetAllText()
+{
+	std::vector<T*> allT;
+	for (int i = 0; i < mText.size(); ++i)
+	{
+		if (T* text = dynamic_cast<T*>(mText[i]))
+		{
+			allT.push_back(text);
+		}
+	}
+	return allT;
+}
+
+//fonction constante
+template<typename T>
+inline std::vector<T*> Scene::GetAllEntity() const
+{
+	std::vector<T*> allT;
+	for (int i = 0; i < mEntities.size(); ++i)
+	{
+		if (T* entity = dynamic_cast<T*>(mEntities[i]))
+		{
+			allT.push_back(entity);
+		}
+	}
+	return allT;
+}
+
+//fonction constante
+template<typename T>
+inline std::vector<T*> Scene::GetAllText() const
 {
 	std::vector<T*> allT;
 	for (int i = 0; i < mText.size(); ++i)

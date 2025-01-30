@@ -5,7 +5,7 @@
 
 #include "define.h"
 
-class Skarnaugh :public Light, public Shooter
+class Skarnaugh :public Enemy, public Light, public Shooter
 {
 protected:
 
@@ -20,6 +20,11 @@ public:
 
 	int GetScore() override;
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	SpriteManager* GetSpriteManager();
+
+	sf::Vector2f GetPosition();
+
+	void SetPosition(sf::Vector2f pos);
+
 };
 

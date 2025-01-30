@@ -6,18 +6,27 @@ class SpriteManager
 protected:
 	sf::Sprite mCurrentSprite;
 	int mFrame;
-	sf::Texture mTileMap;
+	std::vector <sf::Texture> mTileMap;
+	std::vector <sf::Vector2i> mSize;
 	sf::Texture mCurrentAnimation;
-	bool mIsEntity;
-	sf::Vector2f mSize;
+	int mIsEntity;
+	int mIndex;
 	float mElapsedTime;
 
 public:
-	SpriteManager(std::string path, bool isEntity);
+	SpriteManager();
 
-	void LoadCurrentAnimation(sf::Vector2i position, sf::Vector2f size);
+	void Init(std::string path, sf::Vector2i size, int index);
 
-	void LoadCurrentSprite(sf::Vector2f size, float timeFrame);
+	void Init(std::string path, int isEntity, sf::Vector2i size, int index);
+
+	void Init(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale, int index);
+
+	void LoadCurrentAnimation(sf::Vector2i position, sf::Vector2i size);
+
+	void LoadCurrentSprite(sf::Vector2i size, float timeFrame);
+
+	void Update(float timeFrame);
 
 	sf::Sprite GetCurrentSprite();
 
@@ -27,5 +36,8 @@ public:
 
 	sf::Vector2f GetPosition();
 
-	void Update(float timeFrame);
+	void SetIndex(int index);
+
+	int GetIndex();
+
 };

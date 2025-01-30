@@ -7,9 +7,9 @@ Enemy::Enemy() : Character()
 {
 }
 
-void Enemy::Init(int up, std::string path, sf::Vector2f velocity, sf::Vector2f position)
+void Enemy::Init(int up, sf::Vector2f velocity, sf::Vector2f position)
 {
-	Character::Init(up, path, velocity, position);
+	Character::Init(up, velocity, position);
 }
 
 //deplacement

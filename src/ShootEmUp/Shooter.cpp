@@ -1,8 +1,13 @@
 #include "pch.h"
 #include "Shooter.h"
 #include "Scene.h"
-#include "Shot.h"
-#include <iostream>
+
+#include "Ball.h"
+#include "VoltBall.h"
+#include "LightBall.h"
+#include "ShadowBall.h"
+#include "RocBall.h"
+#include "MultiBall.h"
 
 
 
@@ -19,7 +24,7 @@ void Shooter::Init(Scene* Scene)
     mElapsedTime = 0;
 }
 
-//mise a jour
+//mise a jour pour charger le tire
 void Shooter::Update(float timeFrame)
 {
     mElapsedTime += timeFrame;
@@ -28,24 +33,6 @@ void Shooter::Update(float timeFrame)
         mCooldownSwap--;
         mCooldownShoot--;
         mElapsedTime -= DECISECONDE;
-    }
-}
-
-//si veux tirer  + si tire
-//type (0 = player,1 = enemie)
-void Shooter::Shoot(int time, int type, sf::Vector2f position)
-{
-    if (mCooldownShoot < 0)
-    {
-        if (type == TYPEPLAYER)
-        {
-            mScene->Add<Shot>()->Init(type, SHOTPATH, -SHOTVELOCITY, position);
-        }
-        else
-        {
-            mScene->Add<Shot>()->Init(type, SHOTPATH, SHOTVELOCITY, position);
-        }
-        mCooldownShoot = time;
     }
 }
 

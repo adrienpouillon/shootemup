@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Twilight.h"
 #include "Character.h"
 #include "Shooter.h"
 #include "Scene.h"
@@ -8,11 +8,10 @@
 
 
 
-class Player : public Character, public Shooter
+class Player : public Character, public Shooter, public Twilight
 {
 protected:
-	bool* mLight;
-	int mTouch;
+	float mTouch;
 	int tremble;
 	Text* mTextLife;
 public:
@@ -36,5 +35,10 @@ public:
 
 	int GetScore() override;
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	SpriteManager* GetSpriteManager();
+
+	sf::Vector2f GetPosition();
+
+	void SetPosition(sf::Vector2f pos);
+
 };

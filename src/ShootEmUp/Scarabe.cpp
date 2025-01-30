@@ -1,13 +1,14 @@
 #include "pch.h"
 #include "Scarabe.h"
 
-Scarabe::Scarabe() :Shadow()
+Scarabe::Scarabe() :Enemy(), Shadow()
 {
 }
 
 void Scarabe::Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position)
 {
-    Shadow::Init(up, path, light, velocity, position);
+    Enemy::Init(up, velocity, position);
+    Shadow::Init(light, path);
 }
 
 void Scarabe::Update(float timeFrame)
@@ -15,7 +16,7 @@ void Scarabe::Update(float timeFrame)
     //fin
     IsAlive();
     Entity::Update(timeFrame);
-    Texturing();
+    Twilight::Update(timeFrame);
 }
 
 int Scarabe::GetType()
@@ -28,12 +29,19 @@ int Scarabe::GetScore()
     return SCOREENEMY * (SCARABEUP + ((int)SCARABEVELOCITYX / 100));
 }
 
-void Scarabe::draw(sf::RenderTarget& target, sf::RenderStates states) const
+SpriteManager* Scarabe::GetSpriteManager()
 {
-    if (mIsHidden == false)
-    {
-
-        states.transform.combine(this->getTransform());
-        target.draw(mSpriteManager->GetCurrentSprite(), states);
-    }
+    return mSpriteManager;
 }
+
+sf::Vector2f Scarabe::GetPosition()
+{
+    return getPosition();
+}
+
+void Scarabe::SetPosition(sf::Vector2f pos)
+{
+    return setPosition(pos);
+}
+
+

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
+#include "Scene.h"
 #include "define.h"
 
-class Scene;
+//class Scene;
 
 class Shooter
 {
@@ -21,7 +21,30 @@ public:
 
 	void Update(float timeFrame);
 
-	void Shoot(int time, int type, sf::Vector2f position);
+	template<typename T>
+	T* Shoot(int time);
+
+	template<typename T>
+	T* CreatShot();
 
 	void Swap(int time, bool* mLight);
 };
+
+template<typename T>
+inline T* Shooter::CreatShot()
+{
+	return mScene->Add<T>();
+}
+
+//si veux tirer  + si tire
+//type (0 = player,1 = enemie)
+template<typename T>
+inline T* Shooter::Shoot(int time)
+{
+	if (mCooldownShoot < 0)
+	{
+		mCooldownShoot = time;
+		return CreatShot<T>();
+	}
+	return nullptr;
+}

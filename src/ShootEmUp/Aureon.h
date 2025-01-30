@@ -6,7 +6,7 @@
 
 #include "define.h"
 
-class Aureon : public Light, Shooter
+class Aureon : public Enemy, public Light, public Shooter
 {
 protected:
 
@@ -21,5 +21,10 @@ public:
 
 	int GetScore() override;
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	SpriteManager* GetSpriteManager();
+
+	sf::Vector2f GetPosition();
+
+	void SetPosition(sf::Vector2f pos);
+
 };

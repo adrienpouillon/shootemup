@@ -1,16 +1,21 @@
 #pragma once
-
+#include "Twilight.h"
 #include "Enemy.h"
 
-class Light : public Enemy
+class Light : public Twilight
 {
 protected:
-	bool* mLight;
 
 public:
 	Light();
 
-	virtual void Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position);
+	virtual void Init(bool* light, std::string path);
 
-	void Texturing() override;
+	void Init(bool* light, std::string path, int isEntity, sf::Vector2i size);
+
+	virtual void Texturing();
+
+	virtual void Update(float timeFrame) override;
+
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

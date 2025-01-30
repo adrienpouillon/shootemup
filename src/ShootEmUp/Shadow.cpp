@@ -3,15 +3,19 @@
 #include <iostream>
 
 
-Shadow::Shadow() : Enemy()
+Shadow::Shadow() : Twilight()
 {
 	
 }
 
-void Shadow::Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position)
+void Shadow::Init(bool* light, std::string path)
 {
-	Enemy::Init(up, path, velocity, position);
-	mLight = light;
+	Twilight::Init(light, path);
+}
+
+void Shadow::Init(bool* light, std::string path, int isEntity, sf::Vector2i size)
+{
+	Twilight::Init(light, path, isEntity, size);
 }
 
 //invisible dans l'ombre
@@ -28,5 +32,19 @@ void Shadow::Texturing()
 		//si ombre
 		//invisible
 		mIsHidden = true;
+	}
+}
+
+void Shadow::Update(float timeFrame)
+{
+	Twilight::Update(timeFrame);
+}
+
+void Shadow::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	if (mIsHidden == false)
+	{
+		states.transform.combine(this->getTransform());
+		target.draw(mSpriteManager->GetCurrentSprite(), states);
 	}
 }

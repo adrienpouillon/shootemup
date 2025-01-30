@@ -14,9 +14,9 @@ SceneManager::SceneManager()
 
 	//scene menu
 	Text* score = new Score(sf::Vector2f(30.f,30.f), 0);
-	Add<Level1>()->Init(score, 0.25f);
-	Add<Level2>()->Init(score, 0.05f);
-	Add<Level3>()->Init(score, 0.025f);
+	Add<Level1>()->Init(score, 0.37f);
+	Add<Level2>()->Init(score, 0.17f);
+	Add<Level3>()->Init(score, 0.037f);
 
 	NbScene = 3;
 
@@ -28,7 +28,7 @@ SceneManager::SceneManager()
 bool SceneManager::SwitchI(int i)
 {
 	bool execution = false;
-	int lenght = mScenes.size();
+	int lenght = (int)mScenes.size();
 	if(i > lenght - 1 || i < 0)
 	{
 		mCurrentScene = mScenes[i];
@@ -39,7 +39,7 @@ bool SceneManager::SwitchI(int i)
 bool SceneManager::SwitchPlusPlus()
 {
 	bool execution = false;
-	int lenght = mScenes.size();
+	int lenght = (int)mScenes.size();
 	for (int i = 0; i < lenght; i++)
 	{
 		if (mCurrentScene == mScenes[i])
@@ -67,7 +67,7 @@ bool SceneManager::Remove(Scene* scene)
 {
 	//supprimer une instance de mScenes
 	bool execution = false;
-	int lenght = mScenes.size();
+	int lenght = (int)mScenes.size();
 	for (int i = 0; i < lenght; i++)
 	{
 		if (scene == mScenes[i])
@@ -93,9 +93,9 @@ Scene* SceneManager::Update(float timeFrame)
 		{
 			if (mCurrentScene == mScenes[i])
 			{
-				if (i < NbScene)
+				if (i > NbScene)
 				{
-					std::cout << "Merci d'avoir joué !!!" << std::endl;
+					std::cout << "Merci d'avoir joue' !!!" << std::endl;
 					exit(0);
 				}
 			}

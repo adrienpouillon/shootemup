@@ -1,67 +1,89 @@
 #include "pch.h"
 #include "SpriteManager.h"
+#include "define.h"
 #include <iostream>
 
-#define ANIMATIONTIME 0.2
-
-SpriteManager::SpriteManager(std::string path, bool isEntity)
+SpriteManager::SpriteManager()
 {
+
+}
+
+void SpriteManager::Init(std::string path, sf::Vector2i size, int index)
+{
+    Init(path, ISENTITY, size, sf::Vector2i(5, 5), index);
+}
+
+void SpriteManager::Init(std::string path, int isEntity, sf::Vector2i size, int index)
+{
+    Init(path, ISENTITY, size, sf::Vector2i(1, 1), index);
+}
+
+
+void SpriteManager::Init(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale, int index)
+{
+    //ATTENTION l'index doit designer exatement l'emplacement voulu sinon il ecrasera une texture existante
+    mIndex = index;
+    mTileMap.push_back(sf::Texture());
+    //mSize.push_back(sf::Vector2i());
+    //mSize[mIndex] = size;
+    mSize.push_back(size);
     //Load the TileMap at the path
-    if (!mTileMap.loadFromFile(path))
+    if (!mTileMap[mIndex].loadFromFile(path))
     {
         std::cout << "player loading failed";
     }
-    mTileMap.setSmooth(false);
+    mTileMap[mIndex].setSmooth(false);
     mElapsedTime = 0;
+    
 
     if(isEntity)
     {
         //Load the first line of the tilemap
-        LoadCurrentAnimation(sf::Vector2i(0, 0), sf::Vector2f(mTileMap.getSize().x, 16));
+        LoadCurrentAnimation(sf::Vector2i(0, 0), mSize[mIndex]);//sf::Vector2f(mTileMap.getSize().x, size.y)
 
         //Load the first texture of the current animation
-        LoadCurrentSprite(sf::Vector2f(16, 16), 0);
+        LoadCurrentSprite(mSize[mIndex], 0);
 
-        mCurrentSprite.setScale(sf::Vector2f(5.f, 5.f));
-        mSize = sf::Vector2f(16, 16);
+        mCurrentSprite.setScale(scale.x, scale.y);
+        
     }
     else
     {
         //Load the first line of the tilemap
-        sf::Vector2f tilemapSize(mTileMap.getSize());
+        sf::Vector2i tilemapSize(mTileMap[mIndex].getSize());
         LoadCurrentAnimation(sf::Vector2i(0, 0), tilemapSize);
 
         //Load the first texture of the current animation
         LoadCurrentSprite(tilemapSize, 0);
 
-        sf::Vector2f resize(1920 / tilemapSize.x, 1080 / tilemapSize.y);
+        sf::Vector2f resize(mSize[mIndex].x / tilemapSize.x, mSize[mIndex].y / tilemapSize.y);
         mCurrentSprite.setScale(resize);
-        mSize = sf::Vector2f(1920, 1080);
+        
     }
     mIsEntity = isEntity;
 }
 
-void SpriteManager::LoadCurrentAnimation(sf::Vector2i position, sf::Vector2f size)
+void SpriteManager::LoadCurrentAnimation(sf::Vector2i position, sf::Vector2i size)
 {
-    sf::Image tmpImage(mTileMap.copyToImage());
+    sf::Image tmpImage(mTileMap[mIndex].copyToImage());
 
-    if (!mCurrentAnimation.loadFromImage(tmpImage, sf::IntRect(position, sf::Vector2i(mSize.x, mSize.y))))
+    if (!mCurrentAnimation.loadFromImage(tmpImage, sf::IntRect(position, sf::Vector2i(mSize[mIndex].x, mSize[mIndex].y))))
     {
-        exit(0);  // Si la nouvelle texture ne se charge pas, on quitte
+        exit(1);  // Si la nouvelle texture ne se charge pas, on quitte
     }
 
     mFrame = 0;
 }
 
-void SpriteManager::LoadCurrentSprite(sf::Vector2f size, float timeFrame)
+void SpriteManager::LoadCurrentSprite(sf::Vector2i size, float timeFrame)
 {
     mCurrentSprite.setTexture(mCurrentAnimation);
 
-    if(mIsEntity)
+    if(mIsEntity == 1)
     {
         mElapsedTime += timeFrame;
 
-        mCurrentSprite.setTextureRect(sf::IntRect(mFrame * 16, 0, mSize.x, mSize.y));
+        mCurrentSprite.setTextureRect(sf::IntRect(mFrame * 16, 0, mSize[mIndex].x, mSize[mIndex].y));
 
         if(mElapsedTime >= ANIMATIONTIME)
         {
@@ -78,10 +100,14 @@ void SpriteManager::LoadCurrentSprite(sf::Vector2f size, float timeFrame)
     }
     else
     {
-        mCurrentSprite.setTextureRect(sf::IntRect(0, 0, mSize.x, mSize.y));
+        mCurrentSprite.setTextureRect(sf::IntRect(0, 0, mSize[mIndex].x, mSize[mIndex].y));
     }
-    
-    
+}
+
+//Update
+void SpriteManager::Update(float timeFrame)
+{
+    LoadCurrentSprite(mSize[mIndex], timeFrame);
 }
 
 sf::Sprite SpriteManager::GetCurrentSprite()
@@ -104,8 +130,14 @@ sf::Vector2f SpriteManager::GetPosition()
     return mCurrentSprite.getPosition();
 }
 
-//Update
-void SpriteManager::Update(float timeFrame)
+void SpriteManager::SetIndex(int index)
 {
-    LoadCurrentSprite(mSize, timeFrame);
+    mIndex = index;
+    //Load the first line of the tilemap
+    LoadCurrentAnimation(sf::Vector2i(0, 0), mSize[mIndex]);
+}
+
+int SpriteManager::GetIndex()
+{
+    return mIndex;
 }

@@ -2,7 +2,7 @@
 
 #include "Shadow.h"
 
-class Rat : public Shadow
+class Rat : public Enemy, public Shadow
 {
 protected:
 
@@ -17,5 +17,10 @@ public:
 
 	int GetScore() override;
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	SpriteManager* GetSpriteManager();
+
+	sf::Vector2f GetPosition();
+
+	void SetPosition(sf::Vector2f pos);
+
 };

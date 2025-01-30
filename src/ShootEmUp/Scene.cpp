@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Scene.h"
+#include "Twilight.h"
 #include "Entity.h"
 #include <iostream>
 
@@ -65,6 +66,7 @@ void Scene::Update(float timeFrame)
 		else if(is == ISDESTROYOUTGAME)
 		{
 			LowerDifficulty();
+			LowerDifficulty();
 			delete* it;
 			it = mEntities.erase(it);
 		}
@@ -92,12 +94,12 @@ int Scene::GenerateRandomNumber(int min, int max)
 	return value;
 }
 
-sf::Vector2f Scene::CoordonnateRandomize(sf::Vector2f min, sf::Vector2f max)
+sf::Vector2f Scene::ValueRandomize(sf::Vector2f min, sf::Vector2f max)
 {
-	sf::Vector2f randomCoordonnee;
-	randomCoordonnee.x = GenerateRandomNumber(min.x, max.x);
-	randomCoordonnee.y = GenerateRandomNumber(min.y, max.y);
-	return randomCoordonnee;
+	sf::Vector2f randomValue;
+	randomValue.x = (float)GenerateRandomNumber((int)min.x, (int)max.x);
+	randomValue.y = (float)GenerateRandomNumber((int)min.y, (int)max.y);
+	return randomValue;
 }
 
 void Scene::GenerateEnemy(float timeFrame)
@@ -111,7 +113,7 @@ void Scene::GenerateEnemy(float timeFrame)
 		//{
 
 			//choisir des coordonnees aleatoire dans l'interval fournie 
-			sf::Vector2f coordonate = CoordonnateRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
+			sf::Vector2f coordonate = ValueRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
 
 			//choisir un chiffre environ egale à mDifficulty
 			int moreLess = GenerateRandomNumber(0, 3);
@@ -168,12 +170,14 @@ bool Scene::GetIsFinich()
 
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (Entity* i : mEntities)
+	std::vector<Twilight*>twilight = GetAllEntity<Twilight>();
+	for (Twilight* i : twilight)
 	{
 		//afficher
 		target.draw(*i);
 	}
-	for (Text* i : mText)
+	std::vector<Text*>text = GetAllText<Text>();
+	for (Text* i : text)
 	{
 		target.draw(*i);
 	}

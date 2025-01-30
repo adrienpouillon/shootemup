@@ -3,15 +3,19 @@
 #include <iostream>
 
 
-Light::Light() : Enemy()
+Light::Light() : Twilight()
 {
 
 }
 
-void Light::Init(int up, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position)
+void Light::Init(bool* light, std::string path)
 {
-	Enemy::Init(up, path, velocity, position);
-	mLight = light;
+	Twilight::Init(light, path);
+}
+
+void Light::Init(bool* light, std::string path, int isEntity, sf::Vector2i size)
+{
+	Twilight::Init(light, path, isEntity, size);
 }
 
 //invisible dans la lumiere
@@ -28,5 +32,19 @@ void Light::Texturing()
 		//si ombre
 		//visible
 		mIsHidden = false;
+	}
+}
+
+void Light::Update(float timeFrame)
+{
+	Twilight::Update(timeFrame);
+}
+
+void Light::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	if (mIsHidden == false)
+	{
+		states.transform.combine(this->getTransform());
+		target.draw(mSpriteManager->GetCurrentSprite(), states);
 	}
 }

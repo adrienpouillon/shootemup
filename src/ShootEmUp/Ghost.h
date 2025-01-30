@@ -1,6 +1,6 @@
 #pragma once
 #include "Shadow.h"
-class Ghost : public Shadow
+class Ghost : public Enemy, public Shadow
 {
 protected:
 	float mTimeVisible;
@@ -25,6 +25,12 @@ public:
 
 	int GetScore();
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	SpriteManager* GetSpriteManager();
+
+	sf::Vector2f GetPosition();
+
+	void SetPosition(sf::Vector2f pos);
+
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 

@@ -1,15 +1,22 @@
 #include "pch.h"
 #include "Aureon.h"
-#include <iostream>
+
+#include "Ball.h"
+#include "VoltBall.h"
+#include "LightBall.h"
+#include "ShadowBall.h"
+#include "RocBall.h"
+#include "MultiBall.h"
 
 
-Aureon::Aureon() : Light(), Shooter()
+Aureon::Aureon() :Enemy(), Light(), Shooter()
 {//vide
 }
 
 void Aureon::Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position)
 {
-    Light::Init(up, path, light, velocity, position);
+    Enemy::Init(up, velocity, position);
+    Light::Init(light, path);
     Shooter::Init(Scene);
 }
 
@@ -18,12 +25,14 @@ void Aureon::Update(float timeFrame)
 {
     //tirer
     Shooter::Update(timeFrame);
-    Shooter::Shoot(TIMEAUREON, TYPEAUREON, getPosition());
-
+    if (Ball* ball = Shoot<Ball>(TIMEAUREON))
+    {
+        ball->Init(TYPEAUREON, SHOTPATH, mLight, SHOTVELOCITY, GetPosition());
+    }
     //fin 
     IsAlive();
     Entity::Update(timeFrame);
-    Texturing();
+    Twilight::Update(timeFrame);
 }
 
 int Aureon::GetType()
@@ -36,14 +45,21 @@ int Aureon::GetScore()
     return SCOREENEMY * (AUREONUP + ((int)AUREONVELOCITYX / 100) + (TIMESHOOT - TIMEAUREON));
 }
 
-void Aureon::draw(sf::RenderTarget& target, sf::RenderStates states) const
+SpriteManager* Aureon::GetSpriteManager()
 {
-    if (mIsHidden == false)
-    {
-        states.transform.combine(this->getTransform());
-        target.draw(mSpriteManager->GetCurrentSprite(), states);
-    }
+    return mSpriteManager;
 }
+
+sf::Vector2f Aureon::GetPosition()
+{
+    return getPosition();
+}
+
+void Aureon::SetPosition(sf::Vector2f pos)
+{
+    return setPosition(pos);
+}
+
 
 
 

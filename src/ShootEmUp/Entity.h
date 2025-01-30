@@ -1,25 +1,25 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "SpriteManager.h"
 
 class Scene;
 
-class Entity : public sf::Drawable, public sf::Transformable
+class Entity
 {
 protected:
-	SpriteManager* mSpriteManager;
 	int mIsDestroyed;
 	sf::Vector2f mVelocity;
 
 public:
 	Entity();
 
-	virtual void Init(std::string path, sf::Vector2f velocity, sf::Vector2f position, bool isEntity);
+	virtual void Init(sf::Vector2f velocity, sf::Vector2f position);
 
 	void Action(float timeFrame);
 
 	virtual void Move(float timeFrame);
+
+	void MoveY();
 
 	virtual void Attack();
 
@@ -39,11 +39,13 @@ public:
 
 	int GetIsDestroyed();
 
-	SpriteManager* GetSpriteManager();
-
 	virtual int GetType() = 0;
 
 	virtual int GetScore();
+
+	virtual sf::Vector2f GetPosition() = 0;
+
+	virtual void SetPosition(sf::Vector2f pos) = 0;
 
 	void SetVelocity(sf::Vector2f velocity);
 };
@@ -52,6 +54,28 @@ public:
 template<typename T, typename ID>
 inline T Entity::Collide(std::vector<T> allEntities, ID itMe)
 {
+	sf::Vector2f position(itMe->GetPosition());
+	sf::Vector2f size(itMe->GetSpriteManager()->GetSize());
+
+	for (int i = (int)allEntities.size() - 1; i > 0; i--)
+	{
+		sf::Vector2f entityPosition = allEntities[i]->GetPosition();
+		sf::Vector2f entitySize = allEntities[i]->GetSpriteManager()->GetSize();
+		if (allEntities[i] != this)
+		{
+			if (position.x + size.x >= entityPosition.x && position.x <= entityPosition.x + entitySize.x)
+			{
+				if (position.y + size.y >= entityPosition.y && position.y <= entityPosition.y + entitySize.y)
+				{
+					// Les carrés entrent en collision
+					return allEntities[i];
+				}
+			}
+		}
+	}
+	/*if (position.GetX() + size.GetX() >= colliderPosition.GetX() && position.GetX() <= colliderPosition.GetX() + colliderSize.GetX() &&
+		position.GetY() + size.GetY() >= colliderPosition.GetY() && position.GetY() <= colliderPosition.GetY() + colliderSize.GetY())
+	{*/
 	/*
 	sf::Vector2f position(getPosition());
 	sf::Vector2f size(mSpriteManager->GetSize());
@@ -92,29 +116,6 @@ inline T Entity::Collide(std::vector<T> allEntities, ID itMe)
 		}
 	}*/
 
-	sf::Vector2f position(itMe->getPosition());
-	sf::Vector2f size(itMe->mSpriteManager->GetSize());
-
-	for (int i = allEntities.size() - 1; i > 0; i--)
-	{
-		sf::Vector2f entityPosition = allEntities[i]->getPosition();
-		sf::Vector2f entitySize = allEntities[i]->GetSpriteManager()->GetSize();
-		if (allEntities[i] != this)
-		{
-			if (position.x + size.x >= entityPosition.x && position.x <= entityPosition.x + entitySize.x)
-			{
-				if (position.y + size.y >= entityPosition.y && position.y <= entityPosition.y + entitySize.y)
-				{
-					// Les carrés entrent en collision
-					return allEntities[i];
-				}
-			}
-		}
-	}
-	/*if (position.GetX() + size.GetX() >= colliderPosition.GetX() && position.GetX() <= colliderPosition.GetX() + colliderSize.GetX() &&
-		position.GetY() + size.GetY() >= colliderPosition.GetY() && position.GetY() <= colliderPosition.GetY() + colliderSize.GetY())
-	{*/
-
 	return nullptr;
 }
 
@@ -122,12 +123,12 @@ template<typename T, typename ID>
 inline std::vector<T> Entity::CollideAll(std::vector<T> allEntities, ID itMe)
 {
 	std::vector<T> entitiesCollide;
-	sf::Vector2f position(itMe->getPosition());
+	sf::Vector2f position(itMe->GetPosition());
 	sf::Vector2f size(itMe->mSpriteManager->GetSize());
 
 	for (int i = allEntities.size() - 1; i > 0; i--)
 	{
-		sf::Vector2f entityPosition = allEntities[i]->getPosition();
+		sf::Vector2f entityPosition = allEntities[i]->GetPosition();
 		sf::Vector2f entitySize = allEntities[i]->GetSpriteManager()->GetSize();
 		if (allEntities[i] != this)
 		{

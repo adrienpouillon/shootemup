@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Character.h"
+#include "define.h"
 #include <iostream>
 
 Character::Character() : Entity()
@@ -7,9 +8,9 @@ Character::Character() : Entity()
 	
 }
 
-void Character::Init(int up, std::string path, sf::Vector2f velocity, sf::Vector2f position)
+void Character::Init(int up, sf::Vector2f velocity, sf::Vector2f position)
 {
-	Entity::Init(path, velocity, position, 1);
+	Entity::Init(velocity, position);
 	mUp = up;
 }
 

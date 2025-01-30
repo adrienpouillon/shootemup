@@ -1,13 +1,14 @@
 #pragma once
 #include "Entity.h"
+#include "Twilight.h"
 
 
-class Map : public Entity
+class Map : public Entity, public Twilight
 {
 public:
 	Map();
 	
-	virtual void Init(std::string path);
+	virtual void Init(sf::Vector2f pos, bool* light, std::string path);
 
 	void Move(float timeFrame);
 
@@ -16,6 +17,11 @@ public:
 
 	int GetType() override;
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	SpriteManager* GetSpriteManager();
+
+	sf::Vector2f GetPosition();
+
+	void SetPosition(sf::Vector2f pos);
+
 };
 

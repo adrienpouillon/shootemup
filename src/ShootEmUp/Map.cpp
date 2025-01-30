@@ -3,20 +3,21 @@
 #include "define.h"
 
 
-Map::Map() : Entity()
+Map::Map() : Entity(), Twilight()
 {
 }
 
-void Map::Init(std::string path)
+void Map::Init(sf::Vector2f pos, bool* light, std::string path)
 {
-	Entity::Init(path, sf::Vector2f(50.f, 0.f), sf::Vector2f(0.f, 0.f), 0);
+	Twilight::Init(light, path, ISNOTENTITY, sf::Vector2i(1920, 1080));
+	Entity::Init(sf::Vector2f(50.f, 0.f), pos);
 }
 
 void Map::Move(float timeFrame)
 {
-	if (getPosition().x <= -1920)
+	if (GetPosition().x <= -1920)
 	{
-		setPosition(sf::Vector2f(1920, 0));
+		SetPosition(sf::Vector2f(1920, 0));
 	}
 	Entity::Move(timeFrame);
 }
@@ -25,16 +26,25 @@ void Map::Move(float timeFrame)
 void Map::Update(float timeFrame)
 {
 	Move(timeFrame);
-	mSpriteManager->Update(timeFrame);
-}
-
-void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	states.transform.combine(this->getTransform());
-	target.draw(mSpriteManager->GetCurrentSprite(), states);
+	Twilight::Update(timeFrame);
 }
 
 int Map::GetType()
 {
 	return COLLIDEMAP;
+}
+
+SpriteManager* Map::GetSpriteManager()
+{
+	return mSpriteManager;
+}
+
+sf::Vector2f Map::GetPosition()
+{
+	return getPosition();
+}
+
+void Map::SetPosition(sf::Vector2f pos)
+{
+	return setPosition(pos);
 }

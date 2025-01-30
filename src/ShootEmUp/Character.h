@@ -10,7 +10,7 @@ protected:
 public:
 	Character();
 
-	virtual void Init(int up, std::string path, sf::Vector2f velocity, sf::Vector2f position);
+	virtual void Init(int up, sf::Vector2f velocity, sf::Vector2f position);
 
 	virtual void TakeDamage();
 
