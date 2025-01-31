@@ -35,7 +35,7 @@ void Twilight::Init(std::string path, int isEntity, sf::Vector2i size, int index
 
 void Twilight::CreatNewSprite(std::string path, int isEntity, sf::Vector2i size, int index)
 {
-	Twilight::Init(path, ISENTITY, SPRITESIZEDEFAULT, SECONDEINDEX);
+	Twilight::Init(path, ISENTITY, SPRITESIZEDEFAULT, index);
 }
 
 void Twilight::Texturing()
