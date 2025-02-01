@@ -6,36 +6,35 @@ Twilight::Twilight()
 {
 }
 
+//initilisation rapide
 void Twilight::Init(bool* light, std::string path)
 {
 	//considerer comme une entite
-	Init(light, path, ISENTITY, SPRITESIZEDEFAULT);
+	CreatSpriteManager(light, path, ISENTITY, SPRITESIZEDEFAULT, SPRITESCALEDEFAULT);
 }
 
-void Twilight::Init(bool* light, std::string path, int isEntity, sf::Vector2i size)
+void Twilight::Init(bool* light, std::string path, sf::Vector2i size, int isEntity, sf::Vector2i scale)
+{
+	CreatSpriteManager(light, path, isEntity, size, scale);
+}
+
+void Twilight::CreatSpriteManager(bool* light, std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale)
 {
 	mSpriteManager = new SpriteManager();
 	mLight = light;
 
 	//considerer comme le premier sprite creer
-	Init(path, isEntity, size, FIRSTINDEX);
+	int dumb = InitSpriteManager(path, isEntity, size, scale);
 }
 
-void Twilight::Init(std::string path, int isEntity, sf::Vector2i size, int index)
+int Twilight::InitSpriteManager(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale)
 {
-	if (isEntity == ISENTITY)
-	{
-		mSpriteManager->Init(path, size, index);
-	}
-	else
-	{
-		mSpriteManager->Init(path, isEntity, size, index);
-	}
+	return mSpriteManager->Init(path, isEntity, size, scale);
 }
 
-void Twilight::CreatNewSprite(std::string path, int isEntity, sf::Vector2i size, int index)
+int Twilight::CreatNewSprite(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale)
 {
-	Twilight::Init(path, ISENTITY, SPRITESIZEDEFAULT, SECONDEINDEX);
+	return InitSpriteManager(path, isEntity, SPRITESIZEDEFAULT, scale);
 }
 
 void Twilight::Texturing()

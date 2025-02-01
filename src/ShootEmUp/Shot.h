@@ -23,7 +23,7 @@ public:
 
 	virtual bool CanCollideWithEntity(Twilight* entity) = 0;
 
-	int GetType() override;
+	virtual int GetType() = 0;
 
 	int GetMType();
 

@@ -24,6 +24,11 @@ bool Ball::CanCollideWithEntity(Twilight* entity)
     return true;
 }
 
+int Ball::GetType()
+{
+    return COLLIDESHOT;
+}
+
 SpriteManager* Ball::GetSpriteManager()
 {
     return mSpriteManager;

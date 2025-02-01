@@ -17,6 +17,8 @@ public:
 
     virtual bool CanCollideWithEntity(Twilight* entity);
 
+    virtual int GetType();
+
     SpriteManager* GetSpriteManager();
 
     sf::Vector2f GetPosition();

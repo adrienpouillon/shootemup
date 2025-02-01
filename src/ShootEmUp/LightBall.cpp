@@ -30,6 +30,11 @@ bool LightBall::CanCollideWithEntity(Twilight* entity)
     return false;
 }
 
+int LightBall::GetType()
+{
+    return COLLIDELIGHTBALL;
+}
+
 SpriteManager* LightBall::GetSpriteManager()
 {
     return mSpriteManager;

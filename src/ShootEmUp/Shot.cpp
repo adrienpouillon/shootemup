@@ -77,11 +77,6 @@ void Shot::TouchEntity()
     IsDead();
 }
 
-int Shot::GetType()
-{
-    return COLLIDESHOT;
-}
-
 int Shot::GetMType()
 {
     return mType;

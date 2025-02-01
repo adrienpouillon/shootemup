@@ -32,7 +32,7 @@ void Entity::MoveY()
 {
 	if (GetPosition().y > 945 || GetPosition().y < 60)
 	{
-		mVelocity = -mVelocity;
+		mVelocity.y = -mVelocity.y;
 	}
 }
 

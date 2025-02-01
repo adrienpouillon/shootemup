@@ -7,10 +7,12 @@ class MultiBall :public Shot, public Twilight, public Shooter
 {
 protected:
 	std::string mPath;
+	float mTimeInvulnerable;
+	int mDuplication;
 public:
 	MultiBall();
 
-	void Init(int type, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, Scene* Scene);
+	void Init(int type, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, int duplication);
 
 	void Update(float timeFrame);
 
@@ -20,10 +22,14 @@ public:
 
 	virtual bool CanCollideWithEntity(Twilight* entity);
 
+	virtual int GetType();
+
 	SpriteManager* GetSpriteManager();
 
 	sf::Vector2f GetPosition();
 
 	void SetPosition(sf::Vector2f pos);
+
+	~MultiBall();
 
 };

@@ -2,16 +2,20 @@
 #include "Light.h"
 #include "Shooter.h"
 
-class Luciole : public Enemy, public Light, public Shooter
+class Luciole : public Enemy, public Twilight, public Shooter
 {
 protected:
-
+	int mFirstSprite;
+	int mSecondeSprite;
+	bool mSpriteLight;
 public:
 	Luciole();
 
 	void Init(int up, std::string pathLight, std::string pathShadow, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position);
 
 	void Update(float timeFrame);
+
+	virtual void Texturing() override;
 
 	void UpdateSprite();
 

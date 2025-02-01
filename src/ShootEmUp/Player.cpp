@@ -13,20 +13,20 @@
 #include <iostream>
 
 
-Player::Player() : Character(), Shooter(), Twilight()
+Player::Player() : Character(), Shooter()
 {
     
 }
 
-void Player::Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife)
+void Player::Init(int up, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife)
 {
-    Twilight::Init(light, path);
     Character::Init(up, velocity, position);
     Shooter::Init(Scene);
     mCooldownSwap = 0;
     tremble = 1;
     mTextLife = TextLife;//new Text(LIFE, sf::Vector2f(200.f, 30.f), up);
     mTouch = 0;
+    ight = light;
 }
 
 //deplacer + input
@@ -34,6 +34,11 @@ void Player::Move(float timeFrame)
 {
     if (mCooldownSwap < TIMEPLAYERSWAP / 2)
     {
+        if (mTouch > 0.f)
+        {
+            Tremor();
+        }
+
         float x = GetPosition().x;
         float y = GetPosition().y;
         //gauche
@@ -85,31 +90,35 @@ void Player::Move(float timeFrame)
     }
     else
     {
-        //tremblement
-        float x = GetPosition().x + tremble * 10;
-        float y = GetPosition().y;
-        if (x < 0)
-        {
-            x = GetPosition().x;
-        }
-        if (x > 1860)
-        {
-            x = GetPosition().x;
-        }
-        SetPosition(sf::Vector2f(x, y));
-        tremble = -tremble;
+        Tremor();
     }
 }
+
+void Player::Tremor()
+{
+    //tremblement
+    float x = GetPosition().x + tremble * 10;
+    float y = GetPosition().y;
+    if (x < 0)
+    {
+        x = GetPosition().x;
+    }
+    if (x > 1860)
+    {
+        x = GetPosition().x;
+    }
+    SetPosition(sf::Vector2f(x, y));
+    tremble = -tremble;
+}
+
+
 //attaquer + input + verifier si peux attaquer
 void Player::Attack()
 {
     Entity::Attack();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        if(Ball* ball = Shoot<Ball>(TIMEPLAYERSHOOT))
-        {
-            ball->Init(SHOTTYPEPLAYER, SHOTPATH, mLight, -SHOTVELOCITY, GetPosition());
-        }
+        CreateBall();
     }
 }
 
@@ -118,9 +127,10 @@ void Player::Swap()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
-        Shooter::Swap(TIMEPLAYERSWAP, mLight);
+        Shooter::Swap(TIMEPLAYERSWAP, ight);
     }
 }
+
 //mise a jour
 void Player::Update(float timeFrame)
 {
@@ -128,7 +138,6 @@ void Player::Update(float timeFrame)
     mTextLife->SetValue(mUp);
     Shooter::Update(timeFrame);
     Entity::Update(timeFrame);
-    Twilight::Update(timeFrame);
     Swap();
 }
 
@@ -144,8 +153,14 @@ void Player::IsCollide(Scene* scene, float timeFrame)
     std::vector<Shot*> allShot = scene->GetAllEntity<Shot>();
     if (Shot* shot = Collide<Shot*, Player*>(allShot, this))
     {
-        if (shot->GetType() == COLLIDESHOT)
+        if (shot->GetType() >= COLLIDESHOT && shot->GetType() < COLLIDEPLAYER)
         {
+            //si pas ne pas toucher
+            Twilight* twilight = scene->GetTypeConvert<Twilight*, Shot*>(shot);
+            if (CanCollideWithEntity(twilight) == false)
+            {
+                return;
+            }
             if (shot->GetMType() == 1)
             {
                 //detruire l'entite toucher
@@ -183,7 +198,7 @@ void Player::TakeDamage()
     {
         Character::TakeDamage();
     }
-    mTouch = 4.f;
+    mTouch = 1.f;
 }
 
 int Player::GetType()
@@ -194,19 +209,4 @@ int Player::GetType()
 int Player::GetScore()
 {
     return SCOREPLAYER;
-}
-
-SpriteManager* Player::GetSpriteManager()
-{
-    return mSpriteManager;
-}
-
-sf::Vector2f Player::GetPosition()
-{
-    return getPosition();
-}
-
-void Player::SetPosition(sf::Vector2f pos)
-{
-    return setPosition(pos);
 }

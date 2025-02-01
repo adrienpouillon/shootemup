@@ -13,11 +13,13 @@ public:
 
 	virtual void Init(bool* light, std::string path);
 
-	virtual void Init(bool* light, std::string path, int isEntity, sf::Vector2i size);
+	virtual void Init(bool* light, std::string path, sf::Vector2i size, int isEntity, sf::Vector2i scale);
 
-	virtual void Init(std::string path, int isEntity, sf::Vector2i size, int index);
+	virtual void CreatSpriteManager(bool* light, std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale);
 
-	void CreatNewSprite(std::string path, int isEntity, sf::Vector2i size, int index);
+	virtual int InitSpriteManager(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale);
+
+	virtual int CreatNewSprite(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale);
 
 	virtual void Texturing();
 

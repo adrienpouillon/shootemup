@@ -11,7 +11,7 @@ public:
 
 	virtual void Init(bool* light, std::string path);
 
-	void Init(bool* light, std::string path, int isEntity, sf::Vector2i size);
+	void Init(bool* light, std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale);
 
 	virtual void Texturing();
 

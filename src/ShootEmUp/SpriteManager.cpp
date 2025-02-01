@@ -8,25 +8,19 @@ SpriteManager::SpriteManager()
 
 }
 
-void SpriteManager::Init(std::string path, sf::Vector2i size, int index)
+int SpriteManager::Init(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale)
 {
-    Init(path, ISENTITY, size, sf::Vector2i(5, 5), index);
-}
-
-void SpriteManager::Init(std::string path, int isEntity, sf::Vector2i size, int index)
-{
-    Init(path, ISENTITY, size, sf::Vector2i(1, 1), index);
-}
-
-
-void SpriteManager::Init(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale, int index)
-{
-    //ATTENTION l'index doit designer exatement l'emplacement voulu sinon il ecrasera une texture existante
-    mIndex = index;
     mTileMap.push_back(sf::Texture());
-    //mSize.push_back(sf::Vector2i());
-    //mSize[mIndex] = size;
     mSize.push_back(size);
+    if (mSize.size() == mTileMap.size())
+    {
+        mIndex = mTileMap.size() - 1;
+    }
+    else
+    {
+        mIndex++;
+    }
+
     //Load the TileMap at the path
     if (!mTileMap[mIndex].loadFromFile(path))
     {
@@ -39,12 +33,13 @@ void SpriteManager::Init(std::string path, int isEntity, sf::Vector2i size, sf::
     if(isEntity)
     {
         //Load the first line of the tilemap
-        LoadCurrentAnimation(sf::Vector2i(0, 0), mSize[mIndex]);//sf::Vector2f(mTileMap.getSize().x, size.y)
+        LoadCurrentAnimation(sf::Vector2i(0, 0), sf::Vector2i(mTileMap[mIndex].getSize().x, mSize[mIndex].y));
 
         //Load the first texture of the current animation
-        LoadCurrentSprite(mSize[mIndex], 0);
+        LoadCurrentSprite(size, 0);
 
         mCurrentSprite.setScale(scale.x, scale.y);
+        
         
     }
     else
@@ -61,13 +56,14 @@ void SpriteManager::Init(std::string path, int isEntity, sf::Vector2i size, sf::
         
     }
     mIsEntity = isEntity;
+    return mIndex;
 }
 
 void SpriteManager::LoadCurrentAnimation(sf::Vector2i position, sf::Vector2i size)
 {
     sf::Image tmpImage(mTileMap[mIndex].copyToImage());
 
-    if (!mCurrentAnimation.loadFromImage(tmpImage, sf::IntRect(position, sf::Vector2i(mSize[mIndex].x, mSize[mIndex].y))))
+    if (!mCurrentAnimation.loadFromImage(tmpImage, sf::IntRect(position, size)))
     {
         exit(1);  // Si la nouvelle texture ne se charge pas, on quitte
     }
@@ -102,6 +98,8 @@ void SpriteManager::LoadCurrentSprite(sf::Vector2i size, float timeFrame)
     {
         mCurrentSprite.setTextureRect(sf::IntRect(0, 0, mSize[mIndex].x, mSize[mIndex].y));
     }
+    
+    
 }
 
 //Update
@@ -141,3 +139,4 @@ int SpriteManager::GetIndex()
 {
     return mIndex;
 }
+

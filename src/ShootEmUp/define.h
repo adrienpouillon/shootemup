@@ -24,10 +24,11 @@
 //map
 #define MAPPATH "../../../res/map.png"
 #define MAPPOS sf::Vector2f(0.f,0.f)
+#define SPRITESCALEMAP sf::Vector2i(1, 1)
 
 //player
 #define PLAYERUP 1*9
-#define PLAYERPATH "../../../res/player_tilemap.png" 
+#define BOTPATH "../../../res/player_tilemap.png" 
 #define PLAYERVELOCITYX 600.f 
 #define PLAYERVELOCITYY 600.f 
 #define PLAYERVELOCITY sf::Vector2f(PLAYERVELOCITYX, PLAYERVELOCITYY)
@@ -47,34 +48,36 @@
 #define SHOTTYPEENEMY 1
 
 //ball volt
-#define BALLVOLTPATH "../../../res/bulletvolt_tilemap.png" 
-#define BALLVOLTVELOCITYX 500.f 
-#define BALLVOLTVELOCITYY 500.f 
-#define BALLVOLTVELOCITY sf::Vector2f(BALLVOLTVELOCITYX, BALLVOLTVELOCITYY)
+#define VOLTBALLPATH "../../../res/bulletvolt_tilemap.png" 
+#define VOLTBALLVELOCITYX 500.f 
+#define VOLTBALLVELOCITYY 500.f 
+#define VOLTBALLVELOCITY sf::Vector2f(VOLTBALLVELOCITYX, VOLTBALLVELOCITYY)
 
 //ball light
-#define BALLLIGHTPATH "../../../res/bulletlight_tilemap.png" 
-#define BALLLIGHTVELOCITYX 700.f 
-#define BALLLIGHTVELOCITYY 0.f 
-#define BALLLIGHTVELOCITY sf::Vector2f(BALLLIGHTVELOCITYX, BALLLIGHTVELOCITYY)
+#define LIGHTBALLPATH "../../../res/bulletlight_tilemap.png" 
+#define LIGHTBALLVELOCITYX 700.f 
+#define LIGHTBALLVELOCITYY 0.f 
+#define LIGHTBALLVELOCITY sf::Vector2f(LIGHTBALLVELOCITYX, LIGHTBALLVELOCITYY)
 
 //ball shadow
-#define BALLSHADOWPATH "../../../res/bulletshadow_tilemap.png" 
-#define BALLSHADOWVELOCITYX 700.f 
-#define BALLSHADOWVELOCITYY 0.f 
-#define BALLSHADOWVELOCITY sf::Vector2f(BALLSHADOWVELOCITYX, BALLSHADOWVELOCITYY)
+#define SHADOWBALLPATH "../../../res/bulletshadow_tilemap.png" 
+#define SHADOWBALLVELOCITYX 700.f 
+#define SHADOWBALLVELOCITYY 0.f 
+#define SHADOWBALLVELOCITY sf::Vector2f(SHADOWBALLVELOCITYX, SHADOWBALLVELOCITYY)
 
 //ball roc
-#define BALLROCPATH "../../../res/bulletroc_tilemap.png" 
-#define BALLROCVELOCITYX 400.f 
-#define BALLROCVELOCITYY 0.f 
-#define BALLROCVELOCITY sf::Vector2f(BALLROCVELOCITYX, BALLROCVELOCITYY)
+#define ROCBALLPATH "../../../res/bulletroc_tilemap.png" 
+#define ROCBALLVELOCITYX 400.f 
+#define ROCBALLVELOCITYY 0.f 
+#define ROCBALLVELOCITY sf::Vector2f(ROCBALLVELOCITYX, ROCBALLVELOCITYY)
 
 //ball multi
-#define BALLMULTIPATH "../../../res/bulletmulti_tilemap.png" 
-#define BALLMULTIVELOCITYX 700.f 
-#define BALLMULTIVELOCITYY 0.f 
-#define BALLMULTIVELOCITY sf::Vector2f(BALLMULTIVELOCITYX, BALLMULTIVELOCITYY)
+#define MULTIBALLPATH "../../../res/bulletmulti_tilemap.png" 
+#define MULTIBALLVELOCITYX 400.f 
+#define MULTIBALLVELOCITYY 0.f 
+#define MULTIBALLVELOCITY sf::Vector2f(MULTIBALLVELOCITYX, MULTIBALLVELOCITYY)
+#define DUPLICATIONMULTIBALL 3
+#define DUPLICATIONVELOCITY 200.f 
 
 
 
@@ -121,27 +124,43 @@
 #define SCARABEVELOCITY sf::Vector2f(SCARABEVELOCITYX, SCARABEVELOCITYY)
 
 //luciole
-#define LUCIOLEUP 1*5
+#define LUCIOLEUP 1*1
 #define LUCIOLEPATHLIGHT "../../../res/luciolelight_tilemap.png" 
 #define LUCIOLEPATHSHADOW "../../../res/lucioleshadow_tilemap.png" 
 #define LUCIOLEVELOCITYX 75.f 
 #define LUCIOLEVELOCITYY 0.f 
 #define LUCIOLEVELOCITY sf::Vector2f(LUCIOLEVELOCITYX, LUCIOLEVELOCITYY)
-#define TIMELUCIOLE 25
+#define TIMELUCIOLE 40
 //type : 1 ennemi / 0 joueur
 #define TYPELUCIOLE SHOTTYPEENEMY
+
+//scarabe
+#define BLOBUP 1*1
+#define BLOBPATH "../../../res/blob_tilemap.png" 
+#define BLOBVELOCITYX 100.f 
+#define BLOBVELOCITYY 0.f 
+#define BLOBVELOCITY sf::Vector2f(BLOBVELOCITYX, BLOBVELOCITYY)
+#define TIMEBLOB 20
+#define BLOBDUPLICATEVELOCITY sf::Vector2f(100.f,100.f)
 
 
 
 //COLLISION
 #define COLLIDEMAP -1
 #define COLLIDESHOT 0
-#define COLLIDEPLAYER COLLIDESHOT + 1		//1
-#define COLLIDERAT COLLIDEPLAYER + 1		//2
-#define COLLIDEAUREON COLLIDERAT + 1		//3
-#define COLLIDESKARNAUGH COLLIDEAUREON + 1	//4
-#define COLLIDEGHOST COLLIDESKARNAUGH + 1	//5
-#define COLLIDESCARABE COLLIDEGHOST + 1		//6
+#define COLLIDELIGHTBALL COLLIDESHOT + 1	//1
+#define COLLIDESHADOWBALL COLLIDELIGHTBALL+1//2
+#define COLLIDEVOLTBALL COLLIDESHADOWBALL +1//3
+#define COLLIDEROCBALL COLLIDEVOLTBALL + 1	//4
+#define COLLIDEMULTIBALL COLLIDEROCBALL + 1	//5
+#define COLLIDEPLAYER COLLIDEMULTIBALL + 1	//6
+#define COLLIDERAT COLLIDEPLAYER + 1		//7
+#define COLLIDEAUREON COLLIDERAT + 1		//8
+#define COLLIDESKARNAUGH COLLIDEAUREON + 1	//9
+#define COLLIDEGHOST COLLIDESKARNAUGH + 1	//10
+#define COLLIDESCARABE COLLIDEGHOST + 1		//11
+#define COLLIDELUCIOLE COLLIDESCARABE + 1	//12
+#define COLLIDEBLOB COLLIDELUCIOLE + 1		//13
 
 //	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//	//
 
@@ -154,12 +173,13 @@
 
 //sprite manager
 #define SPRITESIZEDEFAULT sf::Vector2i(16, 16)
+#define SPRITESCALEDEFAULT sf::Vector2i(5, 5)
 #define ANIMATIONTIME 0.2f
 #define ISNOTENTITY 0
 #define ISENTITY ISNOTENTITY + 1
 #define FIRSTINDEX 0
-#define SECONDEINDEX FIRSTINDEX + 1
-#define THIRDINDEX SECONDEINDEX + 1
+/*#define SECONDEINDEX FIRSTINDEX + 1
+#define THIRDINDEX SECONDEINDEX + 1*/
 
 
 //score

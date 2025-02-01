@@ -29,6 +29,11 @@ bool RocBall::CanCollideWithEntity(Twilight* Entity)
     return true;
 }
 
+int RocBall::GetType()
+{
+    return COLLIDEROCBALL;
+}
+
 SpriteManager* RocBall::GetSpriteManager()
 {
     return mSpriteManager;

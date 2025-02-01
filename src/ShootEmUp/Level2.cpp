@@ -7,6 +7,7 @@
 #include "ShadowBall.h"
 #include "RocBall.h"
 #include "MultiBall.h"
+#include "Bot.h"
 #include "Player.h"
 #include "Aureon.h"
 #include "Rat.h"
@@ -17,13 +18,19 @@
 
 //Boite a outil
 //Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
+//Add<VoltBall>()->Init(SHOTTYPEENEMY, VOLTBALLPATH, &mLight, VOLTBALLVELOCITY, coordonate);
+//Add<VoltBall>()->Init(SHOTTYPEENEMY, VOLTBALLPATH, &mLight, mScene->ValueRandomize(sf::Vector2f(VOLTBALLVELOCITY.x - 10.f, VOLTBALLVELOCITY.y - 100.f), sf::Vector2f(VOLTBALLVELOCITY.x + 10.f, VOLTBALLVELOCITY.y + 100.f), coordonate);
+//Add<ShadowBall>()->Init(SHOTTYPEENEMY, SHADOWBALLPATH, &mLight, SHADOWBALLVELOCITY, coordonate);
+//Add<LightBall>()->Init(SHOTTYPEENEMY, LIGHTBALLPATH, &mLight, LIGHTBALLVELOCITY, coordonate);
+//Add<RocBall>()->Init(SHOTTYPEENEMY, ROCBALLPATH, &mLight, ROCBALLVELOCITY, coordonate);
+//Add<MultiBall>()->Init(SHOTTYPEENEMY, MULTIBALLPATH, &mLight, MULTIBALLVELOCITY, this, coordonate);
+// 
 //Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate);
 //Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
 //Add<Skarnaugh>()->Init(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate);
 //Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN);
 //Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
-//
-
+//Add<Luciole>()->Init(LUCIOLEUP, LUCIOLEPATHLIGHT, LUCIOLEPATHSHADOW, &mLight, LUCIOLEVELOCITY, this, coordonate);
 
 Level2::Level2() : Scene()
 {
@@ -46,7 +53,7 @@ void Level2::Init(Text* score, float timeGenerate)
     Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
     Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
     mEntities[1]->SetPosition(sf::Vector2f(1920, 0));
-    Add<Player>()->Init(PLAYERUP * 3, PLAYERPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540), mLife);
+    Add<Bot>()->Init(PLAYERUP * 3, BOTPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540), mLife);
     mGenerateEnemy = 200;
 }
 
@@ -126,17 +133,12 @@ void Level2::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY, sf::Vector2f(coordonate.x, coordonate.y + 40.f));
         break;
     case 21:
-        
+
         break;
-    default:
-        if (mDifficulty->GetValue() > 50)
-        {
-            mIsFinich = true;
-        }
-        else
-        {
-            mDifficulty->SetValue(0);
-        }
+    }
+    if (mDifficulty->GetValue() > 52)
+    {
+        mIsFinich = true;
     }
 }
 

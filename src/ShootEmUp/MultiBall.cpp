@@ -7,38 +7,47 @@ MultiBall::MultiBall() : Shot(), Twilight(), Shooter()
 
 }
 
-void MultiBall::Init(int type, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position, Scene* Scene)
+void MultiBall::Init(int type, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, int duplication)
 {
     Shot::Init(type, path, light, velocity, position);
     Shooter::Init(Scene);
     Twilight::Init(light, path);
     mPath = path;
+    mTimeInvulnerable = 0.15f;
+    mDuplication = duplication;
 }
 
 //mise a jour
 void MultiBall::Update(float timeFrame)
 {
+    MoveY();
     Shot::Update(timeFrame);
     Twilight::Update(timeFrame);
+    mTimeInvulnerable -= timeFrame;
 }
 
 void MultiBall::TouchEntity()
 {
-    //creer 3 multi-ball
-    CreatMultiBall();
-    CreatMultiBall();
-    CreatMultiBall();
-
-    //se detruire
-    IsDead();
+    if (mTimeInvulnerable < 0.f)
+    {
+        if (mDuplication > 0)
+        {
+            //creer 3 multi-ball
+            CreatMultiBall();
+            CreatMultiBall();
+            CreatMultiBall();
+        }
+        //se detruire
+        IsDead();
+    }
 }
 
 void MultiBall::CreatMultiBall()
 {
-    sf::Vector2f min = sf::Vector2f(mVelocity.x - 10.f, mVelocity.y - 100.f);
-    sf::Vector2f max = sf::Vector2f(mVelocity.x + 10.f, mVelocity.y + 100.f);
+    sf::Vector2f min = sf::Vector2f(mVelocity.x - 100.f, -mVelocity.y - DUPLICATIONVELOCITY);
+    sf::Vector2f max = sf::Vector2f(mVelocity.x + 100.f, mVelocity.y + DUPLICATIONVELOCITY);
     sf::Vector2f velocity = mScene->ValueRandomize(min, max);
-    CreatShot<MultiBall>()->Init(mType, mPath, mLight, velocity, GetPosition(), mScene);
+    CreatShot<MultiBall>()->Init(mType, mPath, mLight, velocity, mScene, GetPosition(), mDuplication - 1);
 }
 
 bool MultiBall::CanCollideWithEntity(Twilight* entity)
@@ -48,6 +57,11 @@ bool MultiBall::CanCollideWithEntity(Twilight* entity)
         return true;
     }
     return false;
+}
+
+int MultiBall::GetType()
+{
+    return COLLIDEMULTIBALL;
 }
 
 SpriteManager* MultiBall::GetSpriteManager()
@@ -63,4 +77,9 @@ sf::Vector2f MultiBall::GetPosition()
 void MultiBall::SetPosition(sf::Vector2f pos)
 {
     return setPosition(pos);
+}
+
+MultiBall::~MultiBall()
+{
+    
 }
