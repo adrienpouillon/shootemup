@@ -33,5 +33,7 @@ public:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+	virtual int GetDifficulty();
+
 };
 

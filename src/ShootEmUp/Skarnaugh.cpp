@@ -51,3 +51,8 @@ void Skarnaugh::SetPosition(sf::Vector2f pos)
     return setPosition(pos);
 }
 
+int Skarnaugh::GetDifficulty()
+{
+    return SKARNAUGHDIFFICULTY;
+}
+

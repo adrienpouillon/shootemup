@@ -210,3 +210,8 @@ int Player::GetScore()
 {
     return SCOREPLAYER;
 }
+
+int Player::GetDifficulty()
+{
+    return NODIFFICULTY;
+}

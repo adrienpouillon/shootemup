@@ -68,3 +68,8 @@ void Blob::SetPosition(sf::Vector2f pos)
 {
     return setPosition(pos);
 }
+
+int Blob::GetDifficulty()
+{
+    return BLOBDIFFICULTY;
+}

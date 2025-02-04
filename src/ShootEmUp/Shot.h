@@ -29,5 +29,7 @@ public:
 
 	int GetScore() override;
 
+	virtual int GetDifficulty();
+
 	virtual SpriteManager* GetSpriteManager() = 0;
 };

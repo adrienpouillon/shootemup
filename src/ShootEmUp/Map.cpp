@@ -48,3 +48,8 @@ void Map::SetPosition(sf::Vector2f pos)
 {
 	return setPosition(pos);
 }
+
+int Map::GetDifficulty()
+{
+	return NODIFFICULTY;
+}

@@ -42,6 +42,8 @@ public:
 
 	int GetScore() override;
 
+	virtual int GetDifficulty();
+
 	virtual SpriteManager* GetSpriteManager() = 0;
 
 	virtual sf::Vector2f GetPosition() = 0;

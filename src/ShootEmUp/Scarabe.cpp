@@ -44,4 +44,9 @@ void Scarabe::SetPosition(sf::Vector2f pos)
     return setPosition(pos);
 }
 
+int Scarabe::GetDifficulty()
+{
+    return SCARABEDIFFICULTY;
+}
+
 

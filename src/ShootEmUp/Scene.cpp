@@ -135,7 +135,7 @@ void Scene::DestroyEntity(auto* it)
 
 void Scene::DestroyInGame(auto* it)
 {
-	IncreaseDifficulty();
+	IncreaseDifficulty((**it)->GetDifficulty());
 	mScore->Increase((**it)->GetScore());
 	delete** it;
 	*it = mEntities.erase(*it);
@@ -150,16 +150,16 @@ void Scene::DestroyInGameShot(auto* it)
 
 void Scene::DestroyOutGame(auto* it)
 {
-	LowerDifficulty();
-	LowerDifficulty();
-	LowerDifficulty();
+	LowerDifficulty((**it)->GetDifficulty());
+	LowerDifficulty((**it)->GetDifficulty());
+	LowerDifficulty((**it)->GetDifficulty());
 	delete** it;
 	*it = mEntities.erase(*it);
 }
 
 void Scene::DestroyOutGameShot(auto* it)
 {
-	LowerDifficulty();
+	LowerDifficulty((**it)->GetDifficulty());
 	delete** it;
 	*it = mEntities.erase(*it);
 }
@@ -179,7 +179,7 @@ void Scene::IncreaseDifficulty(int probabylity)//50
 
 void Scene::LowerDifficulty(int probabylity)//100
 {
-	int rand = GenerateRandomNumber(0, probabylity);
+	int rand = GenerateRandomNumber(0, probabylity * 2);
 	if (rand == 1)
 	{
 		mDifficulty->Lower(1);

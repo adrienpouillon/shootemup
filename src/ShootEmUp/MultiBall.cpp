@@ -79,6 +79,11 @@ void MultiBall::SetPosition(sf::Vector2f pos)
     return setPosition(pos);
 }
 
+int MultiBall::GetDifficulty()
+{
+    return MULTIBALLDIFFICULTY;
+}
+
 MultiBall::~MultiBall()
 {
     

@@ -22,5 +22,7 @@ public:
 
 	void SetPosition(sf::Vector2f pos);
 
+	virtual int GetDifficulty();
+
 };
 

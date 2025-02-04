@@ -87,3 +87,8 @@ int Shot::GetScore()
     return SCORESHOT * ((int)SHOTVELOCITYX / 200);
 }
 
+int Shot::GetDifficulty()
+{
+    return SHOTDIFFICULTY;
+}
+

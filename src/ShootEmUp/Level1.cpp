@@ -46,11 +46,13 @@ void Level1::Init(Text* score, float timeGenerate)
 
     //texte
     mScore = score;
-    Add(score);
-    mDifficulty = new Difficulty(sf::Vector2f(430.f, 30.f), 0);
-    Add(mDifficulty);
-    mLife = new Up(sf::Vector2f(830.f, 30.f), PLAYERUP);
-    Add(mLife);
+    //Add<Score>()->Init();
+    //mDifficulty = new Difficulty(sf::Vector2f(430.f, 30.f), 0);
+    //Add(mDifficulty);
+    Add<Difficulty>()->Init(sf::Vector2f(430.f, 30.f), 0);
+    //mLife = new Up(sf::Vector2f(830.f, 30.f), PLAYERUP);
+    //Add(mLife);
+    Add<Up>()->Init(sf::Vector2f(830.f, 30.f), PLAYERUP);
 
     //premiere entity (joueur ou menu)
     Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);

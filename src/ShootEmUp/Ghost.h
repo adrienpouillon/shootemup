@@ -32,5 +32,8 @@ public:
 	void SetPosition(sf::Vector2f pos);
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+	virtual int GetDifficulty();
+
 };
 

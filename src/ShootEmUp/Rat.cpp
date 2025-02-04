@@ -48,3 +48,8 @@ void Rat::SetPosition(sf::Vector2f pos)
     return setPosition(pos);
 }
 
+int Rat::GetDifficulty()
+{
+    return RATDIFFICULTY;
+}
+

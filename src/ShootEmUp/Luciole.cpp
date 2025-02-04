@@ -90,7 +90,7 @@ bool Luciole::GetIsHidden()
 
 int Luciole::GetScore()
 {
-    return SCOREENEMY * (GHOSTUP + ((int)GHOSTVELOCITYX / 100));
+    return SCOREENEMY * (LUCIOLEUP + ((int)LUCIOLEVELOCITYX / 100));
 }
 
 SpriteManager* Luciole::GetSpriteManager()
@@ -111,4 +111,9 @@ void Luciole::SetPosition(sf::Vector2f pos)
 void Luciole::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     Twilight::draw(target, states);
+}
+
+int Luciole::GetDifficulty()
+{
+    return LUCIOLEDIFFICULTY;
 }

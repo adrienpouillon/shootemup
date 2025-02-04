@@ -11,7 +11,12 @@ protected:
 	sf::Text mText;
 	sf::Font mFont;
 public:
+
+	Text();
+
 	Text(sf::Vector2f pos, int value);
+
+	void Init(sf::Vector2f pos, int value);
 
 	void Increase(int amount);
 

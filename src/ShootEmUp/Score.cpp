@@ -6,6 +6,11 @@ Score::Score(sf::Vector2f pos, int value) : Text(pos, value)
 
 }
 
+void Score::Init(sf::Vector2f pos, int value)
+{
+	Text::Init(pos, value);
+}
+
 void Score::PrintText()
 {
 	mText.setString("Score : " + std::to_string(mValue));

@@ -88,6 +88,11 @@ int Entity::GetScore()
 	return SCOREDEFAULT;
 }
 
+/*int Entity::GetDifficulty()
+{
+	return NODIFFICULTY;
+}*/
+
 void Entity::SetVelocity(sf::Vector2f velocity)
 {
 	mVelocity = velocity;

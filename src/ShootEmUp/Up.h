@@ -6,7 +6,9 @@ class Up : public Text
 protected:
 
 public:
-	Up(sf::Vector2f pos, int value);
+	Up();
+
+	void Init(sf::Vector2f pos, int value);
 
 	virtual void PrintText();
 
