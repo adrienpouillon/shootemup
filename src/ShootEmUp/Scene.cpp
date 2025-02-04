@@ -25,19 +25,19 @@ void Scene::Init(float timeGenerate)
 	//mDifficulty->SetValue(17);
 }
 
-//ajouter une scene
-void Scene::Add(Entity* entity)
-{
-	//ajouter une instance a mEntities
-	mEntities.push_back(entity);
-}
+////ajouter une scene
+//void Scene::Add(Entity* entity)
+//{
+//	//ajouter une instance a mEntities
+//	mEntities.push_back(entity);
+//}
 
-//ajouter un texte
-void Scene::Add(Text* text)
-{
-	//ajouter une instance a mEntities
-	mText.push_back(text);
-}
+////ajouter un texte
+//void Scene::Add(Text* text)
+//{
+//	//ajouter une instance a mEntities
+//	mText.push_back(text);
+//}
 
 //Mise a jour
 void Scene::Update(float timeFrame)
@@ -55,31 +55,7 @@ void Scene::Update(float timeFrame)
 	//destruction
 	for (auto it = mEntities.begin(); it != mEntities.end();)
 	{
-		int is = (*it)->GetIsDestroyed();
-		if (is == ISDESTROYINGAME)
-		{
-			IncreaseDifficulty();
-			mScore->Increase((*it)->GetScore());
-			delete *it;
-			it = mEntities.erase(it);
-		}
-		else if(is == ISDESTROYOUTGAME)
-		{
-			LowerDifficulty();
-			LowerDifficulty();
-			delete* it;
-			it = mEntities.erase(it);
-		}
-		else if(is == ISDESTROYINGAMESHOT)
-		{
-			mScore->Increase((*it)->GetScore());
-			delete* it;
-			it = mEntities.erase(it);
-		}
-		else
-		{
-			++it;
-		}
+		DestroyEntity(&it);
 	}
 	for (Text* i : mText)
 	{
@@ -132,23 +108,79 @@ void Scene::GenerateEnemy(float timeFrame)
 	}
 }
 
-void Scene::IncreaseDifficulty()
+void Scene::DestroyEntity(auto* it)
+{
+	int is = (**it)->GetIsDestroyed();
+	if (is == ISDESTROYINGAME)
+	{
+		DestroyInGame(it);
+	}
+	else if (is == ISDESTROYOUTGAME)
+	{
+		DestroyOutGame(it);
+	}
+	else if (is == ISDESTROYINGAMESHOT)
+	{
+		DestroyInGameShot(it);
+	}
+	else if (is == ISDESTROYOUTGAMESHOT)
+	{
+		DestroyOutGameShot(it);
+	}
+	else
+	{
+		++(*it);
+	}
+}
+
+void Scene::DestroyInGame(auto* it)
+{
+	IncreaseDifficulty();
+	mScore->Increase((**it)->GetScore());
+	delete** it;
+	*it = mEntities.erase(*it);
+}
+
+void Scene::DestroyInGameShot(auto* it)
+{
+	mScore->Increase((**it)->GetScore());
+	delete** it;
+	*it = mEntities.erase(*it);
+}
+
+void Scene::DestroyOutGame(auto* it)
+{
+	LowerDifficulty();
+	LowerDifficulty();
+	LowerDifficulty();
+	delete** it;
+	*it = mEntities.erase(*it);
+}
+
+void Scene::DestroyOutGameShot(auto* it)
+{
+	LowerDifficulty();
+	delete** it;
+	*it = mEntities.erase(*it);
+}
+
+void Scene::IncreaseDifficulty(int probabylity)//50
 {
 	int type = GetTypeScene();
 	for (int i = 0; i < DIFFICULTYSCENE; i+= type)
 	{
-		int rand = GenerateRandomNumber(0, 100);
-		if (rand == 5 || rand == 10)
+		int rand = GenerateRandomNumber(0, probabylity);
+		if (rand == 1)
 		{
 			mDifficulty->Increase(1);
 		}
 	}
 }
 
-void Scene::LowerDifficulty()
+void Scene::LowerDifficulty(int probabylity)//100
 {
-	int rand = GenerateRandomNumber(0, 100);
-	if (rand == 10)
+	int rand = GenerateRandomNumber(0, probabylity);
+	if (rand == 1)
 	{
 		mDifficulty->Lower(1);
 	}

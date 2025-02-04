@@ -39,8 +39,6 @@ int SpriteManager::Init(std::string path, int isEntity, sf::Vector2i size, sf::V
         LoadCurrentSprite(size, 0);
 
         mCurrentSprite.setScale(scale.x, scale.y);
-        
-        
     }
     else
     {
@@ -53,7 +51,6 @@ int SpriteManager::Init(std::string path, int isEntity, sf::Vector2i size, sf::V
 
         sf::Vector2f resize(mSize[mIndex].x / tilemapSize.x, mSize[mIndex].y / tilemapSize.y);
         mCurrentSprite.setScale(resize);
-        
     }
     mIsEntity = isEntity;
     return mIndex;
