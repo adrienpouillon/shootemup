@@ -32,12 +32,12 @@ void Scene::Init(float timeGenerate)
 //	mEntities.push_back(entity);
 //}
 
-////ajouter un texte
-//void Scene::Add(Text* text)
-//{
-//	//ajouter une instance a mEntities
-//	mText.push_back(text);
-//}
+//ajouter un texte
+void Scene::Add(Text* text)
+{
+	//ajouter une instance a mEntities
+	mText.push_back(text);
+}
 
 //Mise a jour
 void Scene::Update(float timeFrame)
@@ -92,9 +92,10 @@ void Scene::GenerateEnemy(float timeFrame)
 			sf::Vector2f coordonate = ValueRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
 
 			//choisir un chiffre environ egale à mDifficulty
+			int difficulty = GetText<Difficulty>()->GetValue();
 			int moreLess = GenerateRandomNumber(0, 3);
-			int randomEnemy = GenerateRandomNumber(mDifficulty->GetValue() - moreLess, mDifficulty->GetValue() + moreLess);
-
+			int randomEnemy = GenerateRandomNumber(difficulty - moreLess, difficulty + moreLess);
+			
 			//suppression de case -2: et case -1:
 			if (randomEnemy < 0)
 			{
@@ -136,14 +137,14 @@ void Scene::DestroyEntity(auto* it)
 void Scene::DestroyInGame(auto* it)
 {
 	IncreaseDifficulty((**it)->GetDifficulty());
-	mScore->Increase((**it)->GetScore());
+	GetText<Score>()->Increase((**it)->GetScore());
 	delete** it;
 	*it = mEntities.erase(*it);
 }
 
 void Scene::DestroyInGameShot(auto* it)
 {
-	mScore->Increase((**it)->GetScore());
+	GetText<Score>()->Increase((**it)->GetScore());
 	delete** it;
 	*it = mEntities.erase(*it);
 }
@@ -172,7 +173,7 @@ void Scene::IncreaseDifficulty(int probabylity)//50
 		int rand = GenerateRandomNumber(0, probabylity);
 		if (rand == 1)
 		{
-			mDifficulty->Increase(1);
+			GetText<Difficulty>()->Increase(1);
 		}
 	}
 }
@@ -180,13 +181,14 @@ void Scene::IncreaseDifficulty(int probabylity)//50
 void Scene::LowerDifficulty(int probabylity)//100
 {
 	int rand = GenerateRandomNumber(0, probabylity * 2);
+	Difficulty* difficultyId = GetText<Difficulty>();
 	if (rand == 1)
 	{
-		mDifficulty->Lower(1);
+		difficultyId->Lower(1);
 	}
-	if (mDifficulty->GetValue() < -1)
+	if (difficultyId->GetValue() < -1)
 	{
-		mDifficulty->SetValue(-1);
+		difficultyId->SetValue(-1);
 	}
 }
 
