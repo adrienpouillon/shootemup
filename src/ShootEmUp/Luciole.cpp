@@ -10,7 +10,7 @@
 #include "MultiBall.h"
 
 
-Luciole::Luciole() : Enemy(), Light(), Shooter()
+Luciole::Luciole() : Enemy(), Twilight(), Shooter()
 {
 
 }
@@ -18,11 +18,12 @@ Luciole::Luciole() : Enemy(), Light(), Shooter()
 void Luciole::Init(int up, std::string pathLight, std::string pathShadow, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position)
 {
     Enemy::Init(up, velocity, position);
-    Light::Init(light, pathLight);
+    Twilight::Init(light, pathLight);
+    mFirstSprite = FIRSTINDEX;
     Shooter::Init(Scene);
 
     //creer un 2eme sprite
-    Twilight::CreatNewSprite(pathShadow, ISENTITY, SPRITESIZEDEFAULT, SECONDEINDEX);
+    mSecondeSprite = Twilight::CreatNewSprite(pathShadow, ISENTITY, SPRITESIZEDEFAULT, SPRITESCALEDEFAULT);
 }
 
 //mise a jour
@@ -32,7 +33,7 @@ void Luciole::Update(float timeFrame)
     Shooter::Update(timeFrame);
     if (LightBall* lightBall = Shoot<LightBall>(TIMELUCIOLE))
     {
-        lightBall->Init(TYPELUCIOLE, BALLLIGHTPATH, mLight, BALLLIGHTVELOCITY, GetPosition());
+        lightBall->Init(TYPELUCIOLE, LIGHTBALLPATH, mLight, LIGHTBALLVELOCITY, GetPosition());
     }
 
     //set le bon sprite
@@ -44,23 +45,42 @@ void Luciole::Update(float timeFrame)
     Twilight::Update(timeFrame);
 }
 
+//invisible dans la lumiere
+void Luciole::Texturing()
+{
+    if ((*mLight) == true)
+    {
+        //si lumiere
+        //invisible
+        mSpriteLight = true;
+        mIsHidden = false;
+    }
+    else
+    {
+        //si ombre
+        //visible
+        mSpriteLight = false;
+        mIsHidden = false;
+    }
+}
+
 void Luciole::UpdateSprite()
 {
-    if (GetIsHidden())
+    if (mSpriteLight)
     {
         //sprite Shadow
-        mSpriteManager->SetIndex(SECONDEINDEX);
+        mSpriteManager->SetIndex(mSecondeSprite);
     }
     else
     {
         //sprite Light
-        mSpriteManager->SetIndex(FIRSTINDEX);
+        mSpriteManager->SetIndex(mFirstSprite);
     }
 }
 
 int Luciole::GetType()
 {
-    return COLLIDEGHOST;
+    return COLLIDELUCIOLE;
 }
 
 bool Luciole::GetIsHidden()
@@ -70,7 +90,7 @@ bool Luciole::GetIsHidden()
 
 int Luciole::GetScore()
 {
-    return SCOREENEMY * (GHOSTUP + ((int)GHOSTVELOCITYX / 100));
+    return SCOREENEMY * (LUCIOLEUP + ((int)LUCIOLEVELOCITYX / 100));
 }
 
 SpriteManager* Luciole::GetSpriteManager()
@@ -91,4 +111,9 @@ void Luciole::SetPosition(sf::Vector2f pos)
 void Luciole::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     Twilight::draw(target, states);
+}
+
+int Luciole::GetDifficulty()
+{
+    return LUCIOLEDIFFICULTY;
 }

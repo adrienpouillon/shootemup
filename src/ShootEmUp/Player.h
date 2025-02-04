@@ -8,20 +8,25 @@
 
 
 
-class Player : public Character, public Shooter, public Twilight
+class Player : public Character, public Shooter
 {
 protected:
+	bool* ight;
 	float mTouch;
 	int tremble;
 	Text* mTextLife;
 public:
 	Player();
 	
-	virtual void Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife);
+	virtual void Init(int up, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position, Text* TextLife);
 
 	void Move(float timeFrame) override;
 
+	void Tremor();
+
 	void Attack() override;
+
+	virtual void CreateBall() = 0;
 
 	void Swap();
 
@@ -29,16 +34,20 @@ public:
 
 	virtual void TakeDamage();
 
+	virtual bool CanCollideWithEntity(Twilight* entity) = 0;
+
 	void Update(float timeFrame) override;
 
 	int GetType() override;
 
 	int GetScore() override;
 
-	SpriteManager* GetSpriteManager();
+	virtual int GetDifficulty();
 
-	sf::Vector2f GetPosition();
+	virtual SpriteManager* GetSpriteManager() = 0;
 
-	void SetPosition(sf::Vector2f pos);
+	virtual sf::Vector2f GetPosition() = 0;
+
+	virtual void SetPosition(sf::Vector2f pos) = 0;
 
 };

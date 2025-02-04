@@ -7,6 +7,7 @@
 #include "ShadowBall.h"
 #include "RocBall.h"
 #include "MultiBall.h"
+#include "Bot.h"
 #include "Player.h"
 #include "Aureon.h"
 #include "Rat.h"
@@ -17,12 +18,19 @@
 
 //Boite a outil
 //Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
+//Add<VoltBall>()->Init(SHOTTYPEENEMY, VOLTBALLPATH, &mLight, VOLTBALLVELOCITY, coordonate);
+//Add<VoltBall>()->Init(SHOTTYPEENEMY, VOLTBALLPATH, &mLight, mScene->ValueRandomize(sf::Vector2f(VOLTBALLVELOCITY.x - 10.f, VOLTBALLVELOCITY.y - 100.f), sf::Vector2f(VOLTBALLVELOCITY.x + 10.f, VOLTBALLVELOCITY.y + 100.f), coordonate);
+//Add<ShadowBall>()->Init(SHOTTYPEENEMY, SHADOWBALLPATH, &mLight, SHADOWBALLVELOCITY, coordonate);
+//Add<LightBall>()->Init(SHOTTYPEENEMY, LIGHTBALLPATH, &mLight, LIGHTBALLVELOCITY, coordonate);
+//Add<RocBall>()->Init(SHOTTYPEENEMY, ROCBALLPATH, &mLight, ROCBALLVELOCITY, coordonate);
+//Add<MultiBall>()->Init(SHOTTYPEENEMY, MULTIBALLPATH, &mLight, MULTIBALLVELOCITY, this, coordonate);
+// 
 //Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate);
 //Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
 //Add<Skarnaugh>()->Init(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate);
 //Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN);
 //Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
-//
+//Add<Luciole>()->Init(LUCIOLEUP, LUCIOLEPATHLIGHT, LUCIOLEPATHSHADOW, &mLight, LUCIOLEVELOCITY, this, coordonate);
 
 Level3::Level3() : Scene()
 {
@@ -36,16 +44,18 @@ void Level3::Init(Text* score, float timeGenerate)
     //texte
     mScore = score;
     Add(score);
-    mDifficulty = new Difficulty(sf::Vector2f(430.f, 30.f), 0);
-    Add(mDifficulty);
-    mLife = new Up(sf::Vector2f(830.f, 30.f), PLAYERUP);
-    Add(mLife);
+    //mDifficulty = new Difficulty(sf::Vector2f(430.f, 30.f), 0);
+    //Add(mDifficulty);
+    Add<Difficulty>()->Init(sf::Vector2f(430.f, 30.f), 0);
+    //mLife = new Up(sf::Vector2f(830.f, 30.f), PLAYERUP);
+    //Add(mLife);
+    Add<Up>()->Init(sf::Vector2f(830.f, 30.f), PLAYERUP);
 
     //premiere entity (joueur ou menu)
     //Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
     //Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
     //mEntities[1]->SetPosition(sf::Vector2f(1920, 0));
-    Add<Player>()->Init(PLAYERUP * 5, PLAYERPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540), mLife);
+    Add<Bot>()->Init(PLAYERUP * 5, BOTPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540), mLife);
     mGenerateEnemy = 1000;
 }
 
@@ -139,15 +149,10 @@ void Level3::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
     case 21:
 
         break;
-    default:
-        if (mDifficulty->GetValue() > 50)
-        {
-            mIsFinich = true;
-        }
-        else
-        {
-            mDifficulty->SetValue(0);
-        }
+    }
+    if (mDifficulty->GetValue() > 52)
+    {
+        mIsFinich = true;
     }
 }
 

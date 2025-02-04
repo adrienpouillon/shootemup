@@ -9,14 +9,14 @@ ShadowBall::ShadowBall() : Shot(), Shadow()
 void ShadowBall::Init(int type, std::string path, bool* light, sf::Vector2f velocity, sf::Vector2f position)
 {
     Shot::Init(type, path, light, velocity, position);
-    Shadow::Init(light, path);
+    Twilight::Init(light, path);
 }
 
 //mise a jour
 void ShadowBall::Update(float timeFrame)
 {
     Shot::Update(timeFrame);
-    Shadow::Update(timeFrame);
+    Twilight::Update(timeFrame);
 }
 
 bool ShadowBall::CanCollideWithEntity(Twilight* entity)
@@ -26,6 +26,11 @@ bool ShadowBall::CanCollideWithEntity(Twilight* entity)
         return true;
     }
     return false;
+}
+
+int ShadowBall::GetType()
+{
+    return COLLIDESHADOWBALL;
 }
 
 SpriteManager* ShadowBall::GetSpriteManager()

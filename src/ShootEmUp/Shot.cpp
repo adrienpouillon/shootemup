@@ -77,11 +77,6 @@ void Shot::TouchEntity()
     IsDead();
 }
 
-int Shot::GetType()
-{
-    return COLLIDESHOT;
-}
-
 int Shot::GetMType()
 {
     return mType;
@@ -90,5 +85,10 @@ int Shot::GetMType()
 int Shot::GetScore()
 {
     return SCORESHOT * ((int)SHOTVELOCITYX / 200);
+}
+
+int Shot::GetDifficulty()
+{
+    return SHOTDIFFICULTY;
 }
 

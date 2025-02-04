@@ -89,3 +89,8 @@ void Ghost::draw(sf::RenderTarget& target, sf::RenderStates states) const
         Twilight::draw(target, states);
     }
 }
+
+int Ghost::GetDifficulty()
+{
+    return GHOSTDIFFICULTY;
+}

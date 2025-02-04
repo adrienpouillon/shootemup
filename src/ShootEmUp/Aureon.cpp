@@ -60,6 +60,11 @@ void Aureon::SetPosition(sf::Vector2f pos)
     return setPosition(pos);
 }
 
+int Aureon::GetDifficulty()
+{
+    return AUREONDIFFICULTY;
+}
+
 
 
 

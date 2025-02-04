@@ -9,7 +9,7 @@ Map::Map() : Entity(), Twilight()
 
 void Map::Init(sf::Vector2f pos, bool* light, std::string path)
 {
-	Twilight::Init(light, path, ISNOTENTITY, sf::Vector2i(1920, 1080));
+	Twilight::Init(light, path, sf::Vector2i(1920, 1080), ISNOTENTITY, SPRITESCALEMAP);
 	Entity::Init(sf::Vector2f(50.f, 0.f), pos);
 }
 
@@ -47,4 +47,9 @@ sf::Vector2f Map::GetPosition()
 void Map::SetPosition(sf::Vector2f pos)
 {
 	return setPosition(pos);
+}
+
+int Map::GetDifficulty()
+{
+	return NODIFFICULTY;
 }

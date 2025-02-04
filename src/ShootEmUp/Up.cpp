@@ -1,9 +1,14 @@
 #include "pch.h"
 #include "Up.h"
 
-Up::Up(sf::Vector2f pos, int value) : Text(pos, value)
+Up::Up() : Text()
 {
 
+}
+
+void Up::Init(sf::Vector2f pos, int value)
+{
+	Text::Init(pos, value);
 }
 
 void Up::PrintText()

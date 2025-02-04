@@ -16,11 +16,7 @@ protected:
 public:
 	SpriteManager();
 
-	void Init(std::string path, sf::Vector2i size, int index);
-
-	void Init(std::string path, int isEntity, sf::Vector2i size, int index);
-
-	void Init(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale, int index);
+	int Init(std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale);
 
 	void LoadCurrentAnimation(sf::Vector2i position, sf::Vector2i size);
 

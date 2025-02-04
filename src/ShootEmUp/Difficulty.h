@@ -6,7 +6,9 @@ class Difficulty : public Text
 protected:
 
 public:
-	Difficulty(sf::Vector2f pos, int value);
+	Difficulty();
+
+	void Init(sf::Vector2f pos, int value);
 
 	virtual void PrintText();
 

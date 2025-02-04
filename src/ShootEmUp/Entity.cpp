@@ -32,7 +32,7 @@ void Entity::MoveY()
 {
 	if (GetPosition().y > 945 || GetPosition().y < 60)
 	{
-		mVelocity = -mVelocity;
+		mVelocity.y = -mVelocity.y;
 	}
 }
 
@@ -87,6 +87,11 @@ int Entity::GetScore()
 {
 	return SCOREDEFAULT;
 }
+
+/*int Entity::GetDifficulty()
+{
+	return NODIFFICULTY;
+}*/
 
 void Entity::SetVelocity(sf::Vector2f velocity)
 {

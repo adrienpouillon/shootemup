@@ -23,11 +23,13 @@ public:
 
 	virtual bool CanCollideWithEntity(Twilight* entity) = 0;
 
-	int GetType() override;
+	virtual int GetType() = 0;
 
 	int GetMType();
 
 	int GetScore() override;
+
+	virtual int GetDifficulty();
 
 	virtual SpriteManager* GetSpriteManager() = 0;
 };

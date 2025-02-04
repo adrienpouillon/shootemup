@@ -25,6 +25,11 @@ bool VoltBall::CanCollideWithEntity(Twilight* entity)
     return true;
 }
 
+int VoltBall::GetType()
+{
+    return COLLIDEVOLTBALL;
+}
+
 SpriteManager* VoltBall::GetSpriteManager()
 {
     return mSpriteManager;

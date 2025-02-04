@@ -8,6 +8,8 @@ protected:
 public:
 	Score(sf::Vector2f pos, int value);
 
+	void Init(sf::Vector2f pos, int value);
+
 	virtual void PrintText();
 
 	virtual int GetTypeText();

@@ -1,25 +1,26 @@
 #pragma once
-
-#include "Light.h"
+#include "Shadow.h"
 #include "Shooter.h"
-#include "Scene.h"
-
 #include "define.h"
 
-class Aureon : public Enemy, public Light, public Shooter
+class Blob : public Enemy, public Shadow, public Shooter
 {
 protected:
 
 public:
-	Aureon();
+	Blob();
 
 	virtual void Init(int up, std::string path, bool* light, sf::Vector2f velocity, Scene* Scene, sf::Vector2f position);
 
-	void Update(float timeFrame) override;
+	void Update(float timeFrame);
 
-	int GetType() override;
+	void Duplicate(float timeFrame);
 
-	int GetScore() override;
+	void CreateBlob();
+
+	int GetType();
+
+	int GetScore();
 
 	SpriteManager* GetSpriteManager();
 
@@ -30,3 +31,4 @@ public:
 	virtual int GetDifficulty();
 
 };
+

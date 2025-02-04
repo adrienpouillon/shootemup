@@ -13,9 +13,9 @@ void Shadow::Init(bool* light, std::string path)
 	Twilight::Init(light, path);
 }
 
-void Shadow::Init(bool* light, std::string path, int isEntity, sf::Vector2i size)
+void Shadow::Init(bool* light, std::string path, int isEntity, sf::Vector2i size, sf::Vector2i scale)
 {
-	Twilight::Init(light, path, isEntity, size);
+	Twilight::Init(light, path, size, isEntity, scale);
 }
 
 //invisible dans l'ombre

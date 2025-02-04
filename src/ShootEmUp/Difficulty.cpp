@@ -1,9 +1,14 @@
 #include "pch.h"
 #include "Difficulty.h"
 
-Difficulty::Difficulty(sf::Vector2f pos, int value) : Text(pos, value)
+Difficulty::Difficulty() : Text()
 {
 
+}
+
+void Difficulty::Init(sf::Vector2f pos, int value)
+{
+	Text::Init(pos, value);
 }
 
 void Difficulty::PrintText()

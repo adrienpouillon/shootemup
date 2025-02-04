@@ -48,9 +48,19 @@ public:
 
 	void GenerateEnemy(float timeFrame);
 
-	void IncreaseDifficulty();
+	void DestroyEntity(auto* it);
 
-	void LowerDifficulty();
+	void DestroyInGame(auto* it);
+
+	void DestroyInGameShot(auto* it);
+
+	void DestroyOutGame(auto* it);
+
+	void DestroyOutGameShot(auto* it);
+
+	void IncreaseDifficulty(int probabylity);
+
+	void LowerDifficulty(int probabylity);
 
 	std::vector<Entity*> GetEntities();
 
