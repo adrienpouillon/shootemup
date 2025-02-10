@@ -113,6 +113,7 @@ inline T* Scene::AddText()
 	return t;
 }
 
+template<typename T>
 inline T* Scene::GetEntity()
 {
 	for (int i = 0; i < mEntities.size(); ++i)
