@@ -92,10 +92,10 @@ void Scene::GenerateEnemy(float timeFrame)
 			sf::Vector2f coordonate = ValueRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
 
 			//choisir un chiffre environ egale à mDifficulty
-			Difficulty* difficulty = GetText<Difficulty>();
+			int difficulty = GetText<Difficulty>()->GetValue();
 			int moreLess = GenerateRandomNumber(0, 3);
-			int randomEnemy = GenerateRandomNumber(difficulty->GetValue() - moreLess, difficulty->GetValue() + moreLess);
-
+			int randomEnemy = GenerateRandomNumber(difficulty - moreLess, difficulty + moreLess);
+			
 			//suppression de case -2: et case -1:
 			if (randomEnemy < 0)
 			{

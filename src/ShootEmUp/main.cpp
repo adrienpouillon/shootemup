@@ -11,5 +11,6 @@ int main()
 	GameManager* gameManager = new GameManager;
 	gameManager->Init();
 	gameManager->Run();
+	delete gameManager;
 	return 0;
 }
