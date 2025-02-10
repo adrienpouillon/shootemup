@@ -19,8 +19,6 @@ protected:
 	bool spawnrandomize;
 	std::vector < Text*> mText;
 	Text* mScore;
-	Text* mDifficulty;
-	Text* mLife;
 	bool mLight;
 	bool mIsFinich;
 	int mGenerateEnemy;
@@ -31,10 +29,13 @@ public:
 	
 	virtual void Init(float timeGenerate);
 
-	void Add(Entity* entity);
+	//void Add(Entity* entity);
 
 	template <typename T>
 	T* Add();
+
+	template<typename T>
+	T* AddText();
 
 	void Add(Text* text);
 
@@ -105,11 +106,19 @@ inline T* Scene::Add()
 }
 
 template<typename T>
+inline T* Scene::AddText()
+{
+	T* t = new T();
+	mText.push_back(t);
+	return t;
+}
+
+template<typename T>
 inline T* Scene::GetEntity()
 {
 	for (int i = 0; i < mEntities.size(); ++i)
 	{
-		if (T* entity = dynamic_cast<T*>(mEntities))
+		if (T* entity = dynamic_cast<T*>(mEntities[i]))
 		{
 			return entity;
 		}
@@ -161,7 +170,7 @@ inline T* Scene::GetText()
 {
 	for (int i = 0; i < mText.size(); ++i)
 	{
-		if (T* text = dynamic_cast<T*>(mEntities))
+		if (T* text = dynamic_cast<T*>(mText[i]))
 		{
 			return text;
 		}

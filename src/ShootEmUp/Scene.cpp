@@ -32,12 +32,12 @@ void Scene::Init(float timeGenerate)
 //	mEntities.push_back(entity);
 //}
 
-////ajouter un texte
-//void Scene::Add(Text* text)
-//{
-//	//ajouter une instance a mEntities
-//	mText.push_back(text);
-//}
+//ajouter un texte
+void Scene::Add(Text* text)
+{
+	//ajouter une instance a mEntities
+	mText.push_back(text);
+}
 
 //Mise a jour
 void Scene::Update(float timeFrame)
@@ -92,8 +92,9 @@ void Scene::GenerateEnemy(float timeFrame)
 			sf::Vector2f coordonate = ValueRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
 
 			//choisir un chiffre environ egale à mDifficulty
+			Difficulty* difficulty = GetText<Difficulty>();
 			int moreLess = GenerateRandomNumber(0, 3);
-			int randomEnemy = GenerateRandomNumber(mDifficulty->GetValue() - moreLess, mDifficulty->GetValue() + moreLess);
+			int randomEnemy = GenerateRandomNumber(difficulty->GetValue() - moreLess, difficulty->GetValue() + moreLess);
 
 			//suppression de case -2: et case -1:
 			if (randomEnemy < 0)
@@ -117,7 +118,7 @@ void Scene::DestroyEntity(auto* it)
 	}
 	else if (is == ISDESTROYOUTGAME)
 	{
-		DestroyOutGame(it);
+ 		DestroyOutGame(it);
 	}
 	else if (is == ISDESTROYINGAMESHOT)
 	{
@@ -136,6 +137,7 @@ void Scene::DestroyEntity(auto* it)
 void Scene::DestroyInGame(auto* it)
 {
 	IncreaseDifficulty((**it)->GetDifficulty());
+	//Score* score = GetText<Score>();
 	mScore->Increase((**it)->GetScore());
 	delete** it;
 	*it = mEntities.erase(*it);
@@ -143,6 +145,7 @@ void Scene::DestroyInGame(auto* it)
 
 void Scene::DestroyInGameShot(auto* it)
 {
+	//Score* score = GetText<Score>();
 	mScore->Increase((**it)->GetScore());
 	delete** it;
 	*it = mEntities.erase(*it);
@@ -172,7 +175,8 @@ void Scene::IncreaseDifficulty(int probabylity)//50
 		int rand = GenerateRandomNumber(0, probabylity);
 		if (rand == 1)
 		{
-			mDifficulty->Increase(1);
+			Difficulty* difficulty = GetText<Difficulty>();
+			difficulty->Increase(1);
 		}
 	}
 }
@@ -180,13 +184,14 @@ void Scene::IncreaseDifficulty(int probabylity)//50
 void Scene::LowerDifficulty(int probabylity)//100
 {
 	int rand = GenerateRandomNumber(0, probabylity * 2);
+	Difficulty* difficulty = GetText<Difficulty>();
 	if (rand == 1)
 	{
-		mDifficulty->Lower(1);
+		difficulty->Lower(1);
 	}
-	if (mDifficulty->GetValue() < -1)
+	if (difficulty->GetValue() < -1)
 	{
-		mDifficulty->SetValue(-1);
+		difficulty->SetValue(-1);
 	}
 }
 

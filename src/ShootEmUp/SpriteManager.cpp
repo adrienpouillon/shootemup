@@ -95,8 +95,6 @@ void SpriteManager::LoadCurrentSprite(sf::Vector2i size, float timeFrame)
     {
         mCurrentSprite.setTextureRect(sf::IntRect(0, 0, mSize[mIndex].x, mSize[mIndex].y));
     }
-    
-    
 }
 
 //Update
@@ -137,3 +135,17 @@ int SpriteManager::GetIndex()
     return mIndex;
 }
 
+SpriteManager::~SpriteManager()
+{
+    /*int lenght = (int)mTileMap.size();
+    for (int i = 0; i < lenght; i++)
+    {
+        delete mTileMap[i];
+    }
+
+    int lenght = (int)mSize.size();
+    for (int i = 0; i < lenght; i++)
+    {
+        delete mSize[i];
+    }*/
+}

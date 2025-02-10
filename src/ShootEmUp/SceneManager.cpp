@@ -10,6 +10,11 @@
 
 SceneManager::SceneManager()
 {
+
+}
+
+void SceneManager::Init()
+{
 	//initialiser mScenes
 
 	//scene menu
@@ -36,7 +41,7 @@ bool SceneManager::SwitchI(int i)
 	return execution;
 }
 
-bool SceneManager::SwitchPlusPlus()
+bool SceneManager::SwitchScenePlusPlus()
 {
 	bool execution = false;
 	int lenght = (int)mScenes.size();
@@ -73,7 +78,7 @@ bool SceneManager::Remove(Scene* scene)
 		if (scene == mScenes[i])
 		{
 			execution = true;
-			SwitchPlusPlus();
+			SwitchScenePlusPlus();
 			mScenes.erase(mScenes.begin() + i);
 			delete scene;
 			break;
@@ -97,6 +102,10 @@ Scene* SceneManager::Update(float timeFrame)
 				{
 					std::cout << "Merci d'avoir joue' !!!" << std::endl;
 					exit(0);
+				}
+				else
+				{
+					SwitchScenePlusPlus();
 				}
 			}
 		}

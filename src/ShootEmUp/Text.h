@@ -2,8 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#define FONTPATH "../../../res/Pixel Times.ttf"
-
 class Text : public sf::Drawable, sf::Transformable
 {
 protected:

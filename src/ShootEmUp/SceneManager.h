@@ -11,9 +11,11 @@ protected:
 public:
 	SceneManager();
 
+	void Init();
+
 	bool SwitchI(int i);
 
-	bool SwitchPlusPlus();
+	bool SwitchScenePlusPlus();
 
 	void Add(Scene* scene);
 

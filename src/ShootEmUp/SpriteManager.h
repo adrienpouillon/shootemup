@@ -36,4 +36,6 @@ public:
 
 	int GetIndex();
 
+	~SpriteManager();
+
 };

@@ -9,6 +9,7 @@ int main()
 #endif
 
 	GameManager* gameManager = new GameManager;
+	gameManager->Init();
 	gameManager->Run();
 	return 0;
 }
