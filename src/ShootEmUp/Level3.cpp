@@ -53,9 +53,9 @@ void Level3::Init(Text* score, float timeGenerate)
     lifePlayer->Init(sf::Vector2f(830.f, 30.f), PLAYERUP);
 
     //premiere entity (joueur ou menu)
-    //Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
-    //Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
-    //mEntities[1]->SetPosition(sf::Vector2f(1920, 0));
+    Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
+    Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
+    mEntities[1]->SetPosition(sf::Vector2f(1920, 0));
     Add<Bot>()->Init(PLAYERUP * 5, BOTPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540), lifePlayer);
     mGenerateEnemy = 1000;
 }
