@@ -21,14 +21,14 @@ void Bot::Init(int up, std::string path, bool* light, sf::Vector2f velocity, Sce
 
 void Bot::CreateBall()
 {
-    if (Ball* ball = Shoot<Ball>(TIMEPLAYERSHOOT))//VoltBall ShadowBall LightBall RocBall MultiBall
+    if (MultiBall* ball = Shoot<MultiBall>(TIMEPLAYERSHOOT))//VoltBall ShadowBall LightBall RocBall MultiBall
     {
-        ball->Init(SHOTTYPEPLAYER, SHOTPATH, mLight, -SHOTVELOCITY, GetPosition());
+        //ball->Init(SHOTTYPEPLAYER, SHOTPATH, mLight, -SHOTVELOCITY, GetPosition());
         //ball->Init(SHOTTYPEPLAYER, VOLTBALLPATH, mLight, mScene->ValueRandomize(sf::Vector2f(-(VOLTBALLVELOCITY.x), -(VOLTBALLVELOCITY.y)), sf::Vector2f(-(VOLTBALLVELOCITY.x), -(-VOLTBALLVELOCITY.y))), GetPosition());
         //ball->Init(SHOTTYPEPLAYER, SHADOWBALLPATH, mLight, -SHADOWBALLVELOCITY, GetPosition());
         //ball->Init(SHOTTYPEPLAYER, LIGHTBALLPATH, mLight, -LIGHTBALLVELOCITY, GetPosition());
         //ball->Init(SHOTTYPEPLAYER, ROCBALLPATH, mLight, -ROCBALLVELOCITY, GetPosition());
-        //ball->Init(SHOTTYPEPLAYER, MULTIBALLPATH, mLight, -MULTIBALLVELOCITY, mScene, GetPosition(), DUPLICATIONMULTIBALL);
+        ball->Init(SHOTTYPEPLAYER, MULTIBALLPATH, mLight, -MULTIBALLVELOCITY, mScene, GetPosition(), DUPLICATIONMULTIBALL);
     }
 }
 

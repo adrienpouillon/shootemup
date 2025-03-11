@@ -164,7 +164,17 @@ void Player::IsCollide(Scene* scene, float timeFrame)
             if (shot->GetMType() == 1)
             {
                 //detruire l'entite toucher
-                shot->IsDead();
+                if (MultiBall* multiBall = scene->GetTypeConvert<MultiBall*, Shot*>(shot))
+                {
+                    if (multiBall->GetTimeInvulnerable() < 0.f)
+                    {
+                        shot->IsDead();
+                    }
+                }
+                else
+                {
+                    shot->IsDead();
+                }
 
                 //perdre une vie
                 touch = true;

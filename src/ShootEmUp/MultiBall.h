@@ -22,6 +22,8 @@ public:
 
 	virtual bool CanCollideWithEntity(Twilight* entity);
 
+	float GetTimeInvulnerable();
+
 	virtual int GetType();
 
 	SpriteManager* GetSpriteManager();

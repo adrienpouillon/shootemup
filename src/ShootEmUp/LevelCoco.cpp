@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Level1.h"
+#include "LevelCoco.h"
 
 #include "Ball.h"
 #include "VoltBall.h"
@@ -35,12 +35,12 @@
 //Add<Luciole>()->Init(LUCIOLEUP, LUCIOLEPATHLIGHT, LUCIOLEPATHSHADOW, &mLight, LUCIOLEVELOCITY, this, coordonate);
 //Add<Blob>()->Init(BLOBUP, BLOBPATH, &mLight, BLOBVELOCITY, this, coordonate);
 
-Level1::Level1() : Scene()
+LevelCoco::LevelCoco() : Scene()
 {
-    
+
 }
 
-void Level1::Init(Text* score, float timeGenerate)
+void LevelCoco::Init(Text* score, float timeGenerate)
 {
     Scene::Init(timeGenerate);
 
@@ -63,7 +63,7 @@ void Level1::Init(Text* score, float timeGenerate)
     mGenerateEnemy = 100;
 }
 
-void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
+void LevelCoco::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
 {
     switch (randomEnemy)
     {
@@ -75,7 +75,7 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate);
         break;
     case 1:
-        Add<Blob>()->Init(BLOBUP, BLOBPATH, &mLight, BLOBVELOCITY, this, coordonate);
+        Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
         break;
     case 2:
         Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
@@ -84,22 +84,22 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN);
         break;
     case 4:
-
+        Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN);
         break;
     case 5:
-        Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
+        Add<MultiBall>()->Init(SHOTTYPEENEMY, MULTIBALLPATH, &mLight, sf::Vector2f(MULTIBALLVELOCITYX / 4, MULTIBALLVELOCITYY), this, coordonate, DUPLICATIONMULTIBALL);
         break;
     case 6:
         Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate);
         break;
     case 7:
-
+        Add<Luciole>()->Init(LUCIOLEUP, LUCIOLEPATHLIGHT, LUCIOLEPATHSHADOW, &mLight, LUCIOLEVELOCITY, this, coordonate);
         break;
     case 8:
         Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
         break;
     case 9:
-        Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate);
+        Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
         break;
     case 10:
         Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
@@ -108,19 +108,19 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
         break;
     case 12:
-        Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
+        Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
         break;
     case 13:
-        
+        Add<Blob>()->Init(BLOBUP, BLOBPATH, &mLight, BLOBVELOCITY, this, coordonate);
         break;
     case 14:
-        Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN);
+        Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
         break;
     case 15:
         Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY, coordonate);
         break;
     case 16:
-        Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
+        Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
         break;
     case 17:
         Add<Skarnaugh>()->Init(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate);
@@ -136,19 +136,19 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY, sf::Vector2f(coordonate.x, coordonate.y + 40.f));
         break;
     case 21:
-        
+        Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
         break;
     case 22:
         Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
         break;
     case 23:
-        Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
+        Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
         break;
     case 24:
         Add<Luciole>()->Init(LUCIOLEUP, LUCIOLEPATHLIGHT, LUCIOLEPATHSHADOW, &mLight, LUCIOLEVELOCITY, this, coordonate);
         break;
     case 25:
-        Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY * 1.5f, coordonate);
+        Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
         break;
     case 26:
         Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
@@ -160,16 +160,16 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add<Skarnaugh>()->Init(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate);
         break;
     case 29:
-        Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
+        Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
         break;
     case 30:
         Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, coordonate);
         break;
     case 31:
-        Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN);
+        Add<Skarnaugh>()->Init(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate);
         break;
     case 32:
-
+        Add<Skarnaugh>()->Init(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate);
         break;
     case 33:
         Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY * 1.5f, coordonate);
@@ -178,7 +178,7 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY * 1.5f, coordonate);
         break;
     case 35:
-        Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN);
+        Add<Skarnaugh>()->Init(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate);
         break;
     case 36:
         Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
@@ -187,13 +187,13 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
         break;
     case 38:
-
+        Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
         break;
     case 39:
-
+        Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN);
         break;
     case 40:
-        Add<Blob>()->Init(BLOBUP, BLOBPATH, &mLight, BLOBVELOCITY, this, coordonate);
+        Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, coordonate, TIMEGHOSTHIDDEN);
         break;
     case 41:
         Add<Skarnaugh>()->Init(SKARNAUGHUP, SKARNAUGHPATH, &mLight, SKARNAUGHVELOCITY, this, coordonate);
@@ -211,17 +211,23 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
         Add<Blob>()->Init(BLOBUP, BLOBPATH, &mLight, BLOBVELOCITY, this, coordonate);
         break;
     case 46:
-        Add<Scarabe>()->Init(SCARABEUP, SCARABEPATH, &mLight, SCARABEVELOCITY, coordonate);
+        Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, sf::Vector2f(coordonate.x, coordonate.y - 40.f), TIMEGHOSTHIDDEN);
+        Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, sf::Vector2f(coordonate.x, coordonate.y), TIMEGHOSTHIDDEN);
+        Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY, sf::Vector2f(coordonate.x, coordonate.y + 40.f), TIMEGHOSTHIDDEN);
         break;
     case 47:
-        Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, coordonate);
+        Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, sf::Vector2f(coordonate.x, coordonate.y - 40.f));
+        Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, sf::Vector2f(coordonate.x, coordonate.y));
+        Add<Aureon>()->Init(AUREONUP, AUREONPATH, &mLight, AUREONVELOCITY, this, sf::Vector2f(coordonate.x, coordonate.y + 40.f));
         break;
     case 48:
         Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, sf::Vector2f(coordonate.x, coordonate.y - 40.f));
         Add<Ball>()->Init(SHOTTYPEENEMY, SHOTPATH, &mLight, SHOTVELOCITY, sf::Vector2f(coordonate.x, coordonate.y + 40.f));
         break;
     case 49:
-        Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY * 3.f, coordonate);
+        Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY * 3.f, sf::Vector2f(coordonate.x, coordonate.y - 40.f));
+        Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY * 3.f, sf::Vector2f(coordonate.x, coordonate.y));
+        Add<Rat>()->Init(RATUP, RATPATH, &mLight, RATVELOCITY * 3.f, sf::Vector2f(coordonate.x, coordonate.y + 40.f));
         break;
     case 50:
         Add<Ghost>()->Init(GHOSTUP, GHOSTPATH, &mLight, GHOSTVELOCITY * 2.f, coordonate, TIMEGHOSTHIDDEN);
@@ -234,7 +240,7 @@ void Level1::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
     }
 }
 
-int Level1::GetTypeScene()
+int LevelCoco::GetTypeScene()
 {
     return LEVEL1;
 }

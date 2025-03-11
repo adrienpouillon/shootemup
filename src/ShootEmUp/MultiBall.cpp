@@ -59,6 +59,11 @@ bool MultiBall::CanCollideWithEntity(Twilight* entity)
     return false;
 }
 
+float MultiBall::GetTimeInvulnerable()
+{
+    return mTimeInvulnerable;
+}
+
 int MultiBall::GetType()
 {
     return COLLIDEMULTIBALL;
