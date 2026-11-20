@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "LevelCoco.h"
+#include "Level4.h"
 
 #include "Ball.h"
 #include "VoltBall.h"
@@ -35,12 +35,12 @@
 //Add<Luciole>()->Init(LUCIOLEUP, LUCIOLEPATHLIGHT, LUCIOLEPATHSHADOW, &mLight, LUCIOLEVELOCITY, this, coordonate);
 //Add<Blob>()->Init(BLOBUP, BLOBPATH, &mLight, BLOBVELOCITY, this, coordonate);
 
-LevelCoco::LevelCoco() : Scene()
+Level4::Level4() : Scene()
 {
 
 }
 
-void LevelCoco::Init(Text* score, float timeGenerate)
+void Level4::Init(Text* score, float timeGenerate)
 {
     Scene::Init(timeGenerate);
 
@@ -63,7 +63,7 @@ void LevelCoco::Init(Text* score, float timeGenerate)
     mGenerateEnemy = 100;
 }
 
-void LevelCoco::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
+void Level4::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
 {
     switch (randomEnemy)
     {
@@ -240,7 +240,7 @@ void LevelCoco::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
     }
 }
 
-int LevelCoco::GetTypeScene()
+int Level4::GetTypeScene()
 {
     return LEVEL1;
 }

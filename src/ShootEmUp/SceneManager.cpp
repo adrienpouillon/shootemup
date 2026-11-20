@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "SceneManager.h"
-#include "LevelCoco.h"
+#include "Level4.h"
 #include "Level1.h"
 #include "Level2.h"
 #include "Level3.h"
@@ -20,10 +20,10 @@ void SceneManager::Init()
 
 	//scene menu
 	Text* score = new Score(sf::Vector2f(30.f,30.f), 0);
-	Add<LevelCoco>()->Init(score, 0.37f);
 	Add<Level1>()->Init(score, 0.37f);
 	Add<Level2>()->Init(score, 0.17f);
 	Add<Level3>()->Init(score, 0.037f);
+	Add<Level4>()->Init(score, 0.37f);
 
 	NbScene = 3;
 

@@ -1,11 +1,11 @@
 #pragma once
 #include "Scene.h"
-class LevelCoco :public Scene
+class Level4 :public Scene
 {
 protected:
 
 public:
-	LevelCoco();
+	Level4();
 
 	virtual void Init(Text* score, float timeGenerate);
 

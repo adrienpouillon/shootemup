@@ -59,7 +59,7 @@ inline T Entity::Collide(std::vector<T> allEntities, ID itMe)
 	sf::Vector2f position(itMe->GetPosition());
 	sf::Vector2f size(itMe->GetSpriteManager()->GetSize());
 
-	for (int i = (int)allEntities.size() - 1; i > 0; i--)
+	for (int i = (int)allEntities.size() - 1; i > -1; i--)
 	{
 		sf::Vector2f entityPosition = allEntities[i]->GetPosition();
 		sf::Vector2f entitySize = allEntities[i]->GetSpriteManager()->GetSize();
