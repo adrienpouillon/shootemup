@@ -44,17 +44,15 @@ void Level3::Init(Text* score, float timeGenerate)
     //texte
     mScore = score;
     Add(score);
-    //mDifficulty = new Difficulty(sf::Vector2f(430.f, 30.f), 0);
-    //Add(mDifficulty);
-    AddText<Difficulty>()->Init(sf::Vector2f(430.f, 30.f), 0);
-    //mLife = new Up(sf::Vector2f(830.f, 30.f), PLAYERUP);
-    //Add(mLife);
-    Up* lifePlayer = AddText<Up>();
-    lifePlayer->Init(sf::Vector2f(830.f, 30.f), PLAYERUP);
+
+    AddText<LevelText>()->Init(sf::Vector2f(380.f, 30.f), 3);
+    AddText<DifficultyText>()->Init(sf::Vector2f(630.f, 30.f), 0);
+    UpText* lifePlayer = AddText<UpText>();
+    lifePlayer->Init(sf::Vector2f(1030.f, 30.f), PLAYERUP);
 
     //premiere entity (joueur ou menu)
-    Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
-    Add<Map>()->Init(MAPPOS, &mLight, MAPPATH);
+    Add<Map>()->Init(MAPPOS, &mLight, MAPPATH, MAPSPEED);
+    Add<Map>()->Init(MAPPOS, &mLight, MAPPATH, MAPSPEED);
     mEntities[1]->SetPosition(sf::Vector2f(1920, 0));
     Add<Bot>()->Init(PLAYERUP * 5, BOTPATH, &mLight, PLAYERVELOCITY, SCENEID, sf::Vector2f(200, 540), lifePlayer);
     mGenerateEnemy = 1000;
@@ -151,8 +149,8 @@ void Level3::ChooseEnnemy(sf::Vector2f coordonate, int randomEnemy)
 
         break;
     }
-    Difficulty* difficulty = GetText<Difficulty>();
-    if (difficulty->GetValue() > 52)
+    DifficultyText* difficulty = GetText<DifficultyText>();
+    if (difficulty->GetValue() > 21)
     {
         mIsFinich = true;
     }

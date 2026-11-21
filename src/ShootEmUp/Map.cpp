@@ -7,8 +7,9 @@ Map::Map() : Entity(), Twilight()
 {
 }
 
-void Map::Init(sf::Vector2f pos, bool* light, std::string path)
+void Map::Init(sf::Vector2f pos, bool* light, std::string path, float speed)
 {
+	mSpeed = speed;
 	Twilight::Init(light, path, sf::Vector2i(1920, 1080), ISNOTENTITY, SPRITESCALEMAP);
 	Entity::Init(sf::Vector2f(50.f, 0.f), pos);
 }
@@ -25,7 +26,7 @@ void Map::Move(float timeFrame)
 //Mise a jour
 void Map::Update(float timeFrame)
 {
-	Move(timeFrame);
+	Move(timeFrame * mSpeed);
 	Twilight::Update(timeFrame);
 }
 

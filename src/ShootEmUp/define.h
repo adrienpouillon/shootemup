@@ -32,6 +32,7 @@
 //map
 #define MAPPATH "../../../res/map.png"
 #define MAPPOS sf::Vector2f(0.f,0.f)
+#define MAPSPEED 0.5f
 #define SPRITESCALEMAP sf::Vector2i(1, 1)
 
 //player
@@ -49,7 +50,7 @@
 
 //ball
 #define SHOTPATH "../../../res/bullet_tilemap.png" 
-#define SHOTVELOCITYX 700.f 
+#define SHOTVELOCITYX 600.f 
 #define SHOTVELOCITYY 0.f 
 #define SHOTVELOCITY sf::Vector2f(SHOTVELOCITYX, SHOTVELOCITYY)
 #define SHOTDIFFICULTY DEFAULTDIFFICULTY*2
@@ -59,31 +60,31 @@
 
 //ball volt
 #define VOLTBALLPATH "../../../res/bulletvolt_tilemap.png" 
-#define VOLTBALLVELOCITYX 500.f 
+#define VOLTBALLVELOCITYX 400.f 
 #define VOLTBALLVELOCITYY 500.f 
 #define VOLTBALLVELOCITY sf::Vector2f(VOLTBALLVELOCITYX, VOLTBALLVELOCITYY)
 
 //ball light
 #define LIGHTBALLPATH "../../../res/bulletlight_tilemap.png" 
-#define LIGHTBALLVELOCITYX 700.f 
+#define LIGHTBALLVELOCITYX 600.f 
 #define LIGHTBALLVELOCITYY 0.f 
 #define LIGHTBALLVELOCITY sf::Vector2f(LIGHTBALLVELOCITYX, LIGHTBALLVELOCITYY)
 
 //ball shadow
 #define SHADOWBALLPATH "../../../res/bulletshadow_tilemap.png" 
-#define SHADOWBALLVELOCITYX 700.f 
+#define SHADOWBALLVELOCITYX 500.f 
 #define SHADOWBALLVELOCITYY 0.f 
 #define SHADOWBALLVELOCITY sf::Vector2f(SHADOWBALLVELOCITYX, SHADOWBALLVELOCITYY)
 
 //ball roc
 #define ROCBALLPATH "../../../res/bulletroc_tilemap.png" 
-#define ROCBALLVELOCITYX 400.f 
+#define ROCBALLVELOCITYX 300.f 
 #define ROCBALLVELOCITYY 0.f 
 #define ROCBALLVELOCITY sf::Vector2f(ROCBALLVELOCITYX, ROCBALLVELOCITYY)
 
 //ball multi
 #define MULTIBALLPATH "../../../res/bulletmulti_tilemap.png" 
-#define MULTIBALLVELOCITYX 400.f 
+#define MULTIBALLVELOCITYX 300.f 
 #define MULTIBALLVELOCITYY 0.f 
 #define MULTIBALLVELOCITY sf::Vector2f(MULTIBALLVELOCITYX, MULTIBALLVELOCITYY)
 #define MULTIBALLDIFFICULTY DEFAULTDIFFICULTY * 4
@@ -95,7 +96,7 @@
 //rat
 #define RATUP 1*1
 #define RATPATH "../../../res/rat_tilemap.png" 
-#define RATVELOCITYX 200.f 
+#define RATVELOCITYX 150.f 
 #define RATVELOCITYY 0.f 
 #define RATVELOCITY sf::Vector2f(RATVELOCITYX, RATVELOCITYY)
 #define RATDIFFICULTY DEFAULTDIFFICULTY
@@ -104,7 +105,7 @@
 //aureon
 #define AUREONUP 1*1
 #define AUREONPATH "../../../res/aureon_tilemap.Png" 
-#define AUREONVELOCITYX 100.f 
+#define AUREONVELOCITYX 50.f 
 #define AUREONVELOCITYY 0.f 
 #define AUREONVELOCITY sf::Vector2f(AUREONVELOCITYX, AUREONVELOCITYY)
 #define AUREONDIFFICULTY DEFAULTDIFFICULTY /2
@@ -116,7 +117,7 @@
 //skarnaugh
 #define SKARNAUGHUP 1*3
 #define SKARNAUGHPATH "../../../res/skarnaugh_tilemap.Png"
-#define SKARNAUGHVELOCITYX 50.f 
+#define SKARNAUGHVELOCITYX 25.f 
 #define SKARNAUGHVELOCITYY 0.f 
 #define SKARNAUGHVELOCITY sf::Vector2f(SKARNAUGHVELOCITYX, SKARNAUGHVELOCITYY)
 #define SKARNAUGHDIFFICULTY DEFAULTDIFFICULTY /2
@@ -125,7 +126,7 @@
 //ghost
 #define GHOSTUP 1*1
 #define GHOSTPATH "../../../res/ghost_tilemap.png" 
-#define GHOSTVELOCITYX 300.f 
+#define GHOSTVELOCITYX 250.f 
 #define GHOSTVELOCITYY 0.f 
 #define GHOSTVELOCITY sf::Vector2f(GHOSTVELOCITYX, GHOSTVELOCITYY)
 #define GHOSTDIFFICULTY DEFAULTDIFFICULTY
@@ -134,7 +135,7 @@
 //scarabe
 #define SCARABEUP 1*5
 #define SCARABEPATH "../../../res/scarabe_tilemap.png" 
-#define SCARABEVELOCITYX 50.f 
+#define SCARABEVELOCITYX 25.f 
 #define SCARABEVELOCITYY 0.f 
 #define SCARABEVELOCITY sf::Vector2f(SCARABEVELOCITYX, SCARABEVELOCITYY)
 #define SCARABEDIFFICULTY DEFAULTDIFFICULTY
@@ -143,7 +144,7 @@
 #define LUCIOLEUP 1*1
 #define LUCIOLEPATHLIGHT "../../../res/luciolelight_tilemap.png" 
 #define LUCIOLEPATHSHADOW "../../../res/lucioleshadow_tilemap.png" 
-#define LUCIOLEVELOCITYX 75.f 
+#define LUCIOLEVELOCITYX 25.f 
 #define LUCIOLEVELOCITYY 0.f 
 #define LUCIOLEVELOCITY sf::Vector2f(LUCIOLEVELOCITYX, LUCIOLEVELOCITYY)
 #define LUCIOLEDIFFICULTY DEFAULTDIFFICULTY*2
@@ -154,7 +155,7 @@
 //scarabe
 #define BLOBUP 1*1
 #define BLOBPATH "../../../res/blob_tilemap.png" 
-#define BLOBVELOCITYX 100.f 
+#define BLOBVELOCITYX 50.f 
 #define BLOBVELOCITYY 0.f 
 #define BLOBVELOCITY sf::Vector2f(BLOBVELOCITYX, BLOBVELOCITYY)
 #define BLOBDIFFICULTY DEFAULTDIFFICULTY*8

@@ -116,7 +116,7 @@ void Player::Tremor()
 void Player::Attack()
 {
     Entity::Attack();
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::G))
     {
         CreateBall();
     }

@@ -109,6 +109,7 @@ Scene* SceneManager::Update(float timeFrame)
 				{
 					SwitchScenePlusPlus();
 				}
+				break;
 			}
 		}
 	}

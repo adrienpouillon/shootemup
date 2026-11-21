@@ -5,10 +5,12 @@
 
 class Map : public Entity, public Twilight
 {
+protected:
+	float mSpeed;
 public:
 	Map();
 	
-	virtual void Init(sf::Vector2f pos, bool* light, std::string path);
+	virtual void Init(sf::Vector2f pos, bool* light, std::string path, float speed);
 
 	void Move(float timeFrame);
 

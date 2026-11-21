@@ -1,12 +1,12 @@
 #pragma once
 #include "Text.h"
 #include "define.h"
-class Up : public Text
+class LevelText : public Text
 {
 protected:
 
 public:
-	Up();
+	LevelText();
 
 	void Init(sf::Vector2f pos, int value);
 
@@ -14,4 +14,3 @@ public:
 
 	virtual int GetTypeText();
 };
-

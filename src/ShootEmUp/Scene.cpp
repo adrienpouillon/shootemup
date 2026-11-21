@@ -20,7 +20,7 @@ void Scene::Init(float timeGenerate)
 {
 	mTimeGenerate = timeGenerate;
 	mTimeGenerateStay = 0;
-	mLight = false;
+	mLight = true;
 	mIsFinich = false;
 	//mDifficulty->SetValue(17);
 }
@@ -92,7 +92,7 @@ void Scene::GenerateEnemy(float timeFrame)
 			sf::Vector2f coordonate = ValueRandomize(sf::Vector2f(2000, 60), sf::Vector2f(2000, 945));
 
 			//choisir un chiffre environ egale à mDifficulty
-			int difficulty = GetText<Difficulty>()->GetValue();
+			int difficulty = GetText<DifficultyText>()->GetValue();
 			int moreLess = GenerateRandomNumber(0, 3);
 			int randomEnemy = GenerateRandomNumber(difficulty - moreLess, difficulty + moreLess);
 			
@@ -175,7 +175,7 @@ void Scene::IncreaseDifficulty(int probabylity)//50
 		int rand = GenerateRandomNumber(0, probabylity);
 		if (rand == 1)
 		{
-			Difficulty* difficulty = GetText<Difficulty>();
+			DifficultyText* difficulty = GetText<DifficultyText>();
 			difficulty->Increase(1);
 		}
 	}
@@ -184,7 +184,7 @@ void Scene::IncreaseDifficulty(int probabylity)//50
 void Scene::LowerDifficulty(int probabylity)//100
 {
 	int rand = GenerateRandomNumber(0, probabylity * 2);
-	Difficulty* difficulty = GetText<Difficulty>();
+	DifficultyText* difficulty = GetText<DifficultyText>();
 	if (rand == 1)
 	{
 		difficulty->Lower(1);

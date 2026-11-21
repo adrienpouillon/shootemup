@@ -1,12 +1,12 @@
 #pragma once
 #include "Text.h"
 #include "define.h"
-class Difficulty : public Text
+class UpText : public Text
 {
 protected:
 
 public:
-	Difficulty();
+	UpText();
 
 	void Init(sf::Vector2f pos, int value);
 

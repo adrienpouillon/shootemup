@@ -21,15 +21,36 @@ void Bot::Init(int up, std::string path, bool* light, sf::Vector2f velocity, Sce
 
 void Bot::CreateBall()
 {
-    if (Ball* ball = Shoot<Ball>(TIMEPLAYERSHOOT))//VoltBall ShadowBall LightBall RocBall MultiBall
+    if (Ball* ball = Shoot<Ball>(TIMEPLAYERSHOOT))
     {
         ball->Init(SHOTTYPEPLAYER, SHOTPATH, mLight, -SHOTVELOCITY, GetPosition());
-        //ball->Init(SHOTTYPEPLAYER, VOLTBALLPATH, mLight, mScene->ValueRandomize(sf::Vector2f(-(VOLTBALLVELOCITY.x), -(VOLTBALLVELOCITY.y)), sf::Vector2f(-(VOLTBALLVELOCITY.x), -(-VOLTBALLVELOCITY.y))), GetPosition());
-        //ball->Init(SHOTTYPEPLAYER, SHADOWBALLPATH, mLight, -SHADOWBALLVELOCITY, GetPosition());
-        //ball->Init(SHOTTYPEPLAYER, LIGHTBALLPATH, mLight, -LIGHTBALLVELOCITY, GetPosition());
-        //ball->Init(SHOTTYPEPLAYER, ROCBALLPATH, mLight, -ROCBALLVELOCITY, GetPosition());
-        //ball->Init(SHOTTYPEPLAYER, MULTIBALLPATH, mLight, -MULTIBALLVELOCITY, mScene, GetPosition(), DUPLICATIONMULTIBALL);
     }
+
+    /*if (VoltBall* ball = Shoot<VoltBall>(TIMEPLAYERSHOOT))
+    {
+        ball->Init(SHOTTYPEPLAYER, VOLTBALLPATH, mLight, mScene->ValueRandomize(sf::Vector2f(-(VOLTBALLVELOCITY.x), -(VOLTBALLVELOCITY.y)), sf::Vector2f(-(VOLTBALLVELOCITY.x), -(-VOLTBALLVELOCITY.y))), GetPosition());
+    }*/
+
+    /*if (ShadowBall* ball = Shoot<ShadowBall>(TIMEPLAYERSHOOT))
+    {
+        ball->Init(SHOTTYPEPLAYER, SHADOWBALLPATH, mLight, -SHADOWBALLVELOCITY, GetPosition());
+    }*/
+
+    /*if (LightBall* ball = Shoot<LightBall>(TIMEPLAYERSHOOT))
+    {
+        ball->Init(SHOTTYPEPLAYER, LIGHTBALLPATH, mLight, -LIGHTBALLVELOCITY, GetPosition());
+    }*/
+
+    /*if(RocBall * ball = Shoot<RocBall>(TIMEPLAYERSHOOT))
+    {
+        ball->Init(SHOTTYPEPLAYER, ROCBALLPATH, mLight, -ROCBALLVELOCITY, GetPosition());
+    }*/
+
+    /*if (MultiBall* ball = Shoot<MultiBall>(TIMEPLAYERSHOOT))
+    {
+        ball->Init(SHOTTYPEPLAYER, MULTIBALLPATH, mLight, -MULTIBALLVELOCITY, mScene, GetPosition(), DUPLICATIONMULTIBALL);
+    }*/
+
 }
 
 //mise a jour

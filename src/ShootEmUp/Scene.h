@@ -2,8 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 #include "Score.h"
-#include "Difficulty.h"
-#include "Up.h"
+#include "DifficultyText.h"
+#include "UpText.h"
+#include "LevelText.h"
 #include "define.h"
 
 class Entity;
